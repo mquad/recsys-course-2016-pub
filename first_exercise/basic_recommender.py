@@ -12,8 +12,8 @@ logging.basicConfig(
     format="%(asctime)s: %(name)s: %(levelname)s: %(message)s")
 
 
-def read_dataset(path, header=None, columns=None, user_key='user_id', item_key='item_id', rating_key='rating'):
-	data = pd.read_csv(path, header=header, names=columns)
+def read_dataset(path, header=None, columns=None, user_key='user_id', item_key='item_id', rating_key='rating', sep=','):
+	data = pd.read_csv(path, header=header, names=columns, sep=sep)
 	logger.info('Columns: {}'.format(data.columns.values))
 	# build user and item maps (and reverse maps)
 	# this is used to map ids to indexes starting from 0 to nitems (or nusers)
@@ -72,10 +72,11 @@ parser.add_argument('dataset')
 parser.add_argument('--holdout_perc', type=float, default=0.8)
 parser.add_argument('--header', type=int, default=None)
 parser.add_argument('--columns', type=str, default=None)
+parser.add_argument('--sep', type=str, default=',')
 parser.add_argument('--user_key', type=str, default='user_id')
 parser.add_argument('--item_key', type=str, default='item_id')
 parser.add_argument('--rating_key', type=str, default='rating')
-parser.add_argument('--rnd_seed', type=float, default=1234)
+parser.add_argument('--rnd_seed', type=int, default=1234)
 args = parser.parse_args()
 
 # convert the column argument to list
@@ -87,12 +88,13 @@ logger.info('Reading {}'.format(args.dataset))
 dataset, idx_to_user, idx_to_item = read_dataset(
 	args.dataset, 
 	header=args.header,
+	sep=args.sep,
 	columns=args.columns,
 	item_key=args.item_key,
 	user_key=args.user_key,
 	rating_key=args.rating_key)
 
-nusers, nitems = len(user_to_idx), len(item_to_idx)
+nusers, nitems = len(idx_to_user), len(idx_to_item)
 logger.info('The dataset has {} users and {} items'.format(nusers, nitems))
 
 # compute the holdout split
