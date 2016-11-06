@@ -54,7 +54,7 @@ class TopPop(object):
 	def __init__(self):
 		super(TopPop, self).__init__()
 	def fit(self, train):
-		if isinstance(train, sps.csr_matrix):
+		if not isinstance(train, sps.csc_matrix):
 			# convert to csc matrix for faster column-wise sum
 			train_csc = train.tocsc()
 		else:
@@ -148,7 +148,3 @@ logger.info('Recall@{}: {:.4f}'.format(at, recall_))
 logger.info('MAP@{}: {:.4f}'.format(at, map_))
 logger.info('MRR@{}: {:.4f}'.format(at, mrr_))
 logger.info('NDCG@{}: {:.4f}'.format(at, ndcg_))
-
-
-
-
