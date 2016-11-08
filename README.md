@@ -1,6 +1,12 @@
 # recsys-course
 This is the official repository for the 2016 Recommender Systems course at Polimi.
 
+### READ CAREFULLY THE INSTALLATION PROCEUDURE
+There have been some slight changes since the last version (mainly to avoid an excessive pollution of the main directory of the project).
+We **strongly** advise you to clean your local version of the repository and to clone and install this new version
+from scratch. Thank you!
+
+
 ## Install
 
 ###Requirements:
