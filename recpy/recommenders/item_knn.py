@@ -30,15 +30,28 @@ class ItemKNNRecommender(Recommender):
     def fit(self, X):
         self.dataset = X
         self.item_weights = self.similarity.compute(X)
-        # TODO: for each column, keep only the top-k scored items
+        # for each column, keep only the top-k scored items
+        idx_sorted = np.argsort(self.item_weights, axis=0) # sort by column
+        # index of the items that DON'T BELONG 
+        # to the top-k similar items
+        not_top_k = idx_sorted[:-self.k, :]
+        # zero-out the not top-k items for each column
+        self.item_weights[not_top_k, np.arange(self.item_weights.shape[1])] = 0.0
+
 
     def recommend(self, user_id, n=None, exclude_seen=True):
-        # TODO: compute the scores
+        # compute the scores using the dot product
+        user_profile = self._get_user_ratings(user_id)
+        scores = user_profile.dot(self.item_weights).ravel()
+
         if self.normalize:
-            # TODO: normalize the scores
             # normalization will keep the scores in the same range
             # of value of the ratings in dataset
-            pass
+            rated = user_profile.copy()
+            rated.data = np.ones_like(user_profile.data)
+            den = rated.dot(self.item_weights).ravel()
+            den[np.abs(den) < 1e-6] = 1.0 # to avoid NaNs
+            scores /= den
         # rank items
         ranking = scores.argsort()[::-1]
         if exclude_seen:

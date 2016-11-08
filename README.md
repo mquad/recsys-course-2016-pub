@@ -3,11 +3,17 @@ This is the official repository for the 2016 Recommender Systems course at Polim
 
 ## Install
 
-- Install Miniconda for Python3.5 [link](http://conda.pydata.org/miniconda.html)
-- Create the virtual environment: `conda create -n recsys-env --file requirements.txt`
-- Activate the virtual environment: `source activate recsys-env`
-- Install recpy: `sh install.sh`
-- Run one example: `sh run_example.sh`
+###Requirements:
+- C++ compiler, like **gcc4.8+** or **clang**
+- On Linux, ensure that you have packages **libc6-dev** and **build-essentials** 
+(run `apt-get install -y libc6-dev build-essentials` to install them)
+
+###Installation instructions:
+1. Install Miniconda for Python3.5 [link](http://conda.pydata.org/miniconda.html)
+2. Create the virtual environment: `conda create -n recsys-env --file recpy/requirements.txt`
+3. Activate the virtual environment: `source activate recsys-env`
+4. Install recpy: `cd recpy; sh install.sh; cd ..`
+5. Run one example: `sh run_top_pop.sh`
 
 NOTE: to deactivate the virtual environment run: `source deactivate recsys-env`
 
@@ -15,7 +21,7 @@ NOTE: to deactivate the virtual environment run: `source deactivate recsys-env`
 - `recpy`: main package
 - `recpy/recommenders`: recommendation algorithms
 - `recpy/utils`: dataset management and split utils
-- `recpy/cython`: Cython code
+- `recpy/_cython`: Cython code
 
 
 
