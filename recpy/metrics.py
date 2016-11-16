@@ -66,7 +66,7 @@ def ndcg(ranked_list, pos_items, relevance=None, at=None):
 
 
 def dcg(scores):
-    return np.sum(np.divide(np.power(2, scores) - 1, np.log(np.arange(scores.shape[0], dtype=np.float32) + 2)))
+    return np.sum(np.divide(np.power(2, scores) - 1, np.log(np.arange(scores.shape[0], dtype=np.float32) + 2)), dtype=np.float32)
 
 
 metrics = ['AUC', 'Precision' 'Recall', 'MAP', 'NDCG']

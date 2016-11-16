@@ -84,3 +84,15 @@ class AdjustedCosine(ISimilarity):
         if self.shrinkage > 0:
             dist *= co_counts / (co_counts + self.shrinkage)
         return dist
+
+
+# from .._cython._similarity import pearson_corr
+# class Pearson2(IDistance):
+#     def compute(self, X):
+#         # convert to csc matrix for faster column-wise operations
+#         X = check_matrix(X, 'csc', dtype=np.float32)
+#         dist, co_counts = pearson_corr(X)
+#         if self.shrinkage > 0:
+#             dist *= co_counts / (co_counts + self.shrinkage)
+#         return dist
+
