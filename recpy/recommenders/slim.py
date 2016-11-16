@@ -40,3 +40,30 @@ class SLIM(Recommender):
     def recommend(self, user_id, n=None, exclude_seen=True):
         # TODO: compute the scores using the dot product
         pass
+
+from multiprocessing import Pool
+from functools import partial
+
+
+class MultiThreadSLIM(SLIM):
+    def __init__(self,
+                 l1_penalty=0.1,
+                 l2_penalty=0.1,
+                 positive_only=True,
+                 workers=4):
+        super(MultiThreadSLIM, self).__init__(l1_penalty=l1_penalty,
+                                              l2_penalty=l2_penalty,
+                                              positive_only=positive_only)
+        self.workers = workers
+
+    def __str__(self):
+        return "SLIM_mt (l1_penalty={},l2_penalty={},positive_only={},workers={})".format(
+            self.l1_penalty, self.l2_penalty, self.positive_only, self.workers
+        )
+
+
+    def fit(self, X):
+        self.dataset = X
+        # TODO: build the SLIM W matrix in a parallelized way
+        pass
+
