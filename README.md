@@ -10,24 +10,25 @@ from scratch. Thank you!
 ## Install
 
 ###Requirements:
+- python3.5+ (see the Installation instructions to configure all the other requirements)
 - C++ compiler, like **gcc4.8+** or **clang**
 - On Linux, ensure that you have packages **libc6-dev** and **build-essentials** 
 (run `apt-get install -y libc6-dev build-essentials` to install them)
 
 ###Installation instructions:
 1. Install Miniconda for Python3.5 [link](http://conda.pydata.org/miniconda.html)
-2. Create the virtual environment: `conda create -n recsys-env --file recpy/requirements.txt`
+2. Create the virtual environment: `conda create -n recsys-env --file RecPy/requirements.txt`
 3. Activate the virtual environment: `source activate recsys-env`
-4. Install recpy: `cd recpy; sh install.sh; cd ..`
-5. Run one example: `sh run_top_pop.sh`
+4. Install RecPy: `cd RecPy; sh install.sh; cd ..`
+5. Run one example: `cd scripts; sh run_top_pop.sh`
 
 NOTE: to deactivate the virtual environment run: `source deactivate recsys-env`
 
 # Packages
-- `recpy`: main package
-- `recpy/recommenders`: recommendation algorithms
-- `recpy/utils`: dataset management and split utils
-- `recpy/_cython`: Cython code
-
+- `RecPy/recpy/`: main package
+- `RecPy/recpy/recommenders/`: recommendation algorithms
+- `RecPy/recpy/utils/`: dataset management and split utils
+- `RecPy/recpy/_cython/`: Cython code
+- `scripts/`: scripts used during the practices
 
 

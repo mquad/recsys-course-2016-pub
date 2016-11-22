@@ -8,13 +8,13 @@ _directive_defaults['linetrace'] = True
 _directive_defaults['binding'] = True
 
 extensions = [
-    Extension(name='_cython._similarity',
-              sources=["_cython/_similarity.pyx"], define_macros=[('CYTHON_TRACE', '1')])
+    Extension(name='recpy._cython._similarity',
+              sources=["recpy/_cython/_similarity.pyx"], define_macros=[('CYTHON_TRACE', '1')])
 ]
 
 setup(
-    name='recpy',
-    version="0.1.0",
+    name='RecPy',
+    version="0.2.0",
     description='Recommender Systems framework for the 2016 Recsys Course at Polimi',
     url='https://github.com/mquad/recsys-course',
     author='Massimo Quadrana and Yashar Deldjoo',
@@ -32,6 +32,7 @@ setup(
         'Topic :: Software Development :: Libraries :: Python Modules',
         ],
     install_requires=['numpy', 'scipy>=0.16'],
+    packages=['recpy', 'recpy.recommenders', 'recpy._cython', 'recpy.utils'],
     setup_requires=["Cython >= 0.19"],
     ext_modules=cythonize(extensions),
     include_dirs=[numpy.get_include()]

@@ -1,14 +1,8 @@
 import argparse
 import logging
-from collections import OrderedDict
-from datetime import datetime as dt
 
-from recpy.recommenders.item_knn import ItemKNNRecommender
-from recpy.recommenders.non_personalized import TopPop, GlobalEffects
-from recpy.recommenders.slim import SLIM, MultiThreadSLIM
 from recpy.utils.data_utils import read_dataset, df_to_csr
 from recpy.utils.split import holdout
-from recpy.metrics import roc_auc, precision, recall, map, ndcg, rr
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(

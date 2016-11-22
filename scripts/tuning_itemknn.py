@@ -3,9 +3,9 @@ import argparse
 import pandas as pd
 import numpy as np
 
-from recpy.recommenders.item_knn import ItemKNNRecommender
-from recpy.recommenders.non_personalized import TopPop, GlobalEffects
-from recpy.recommenders.slim import SLIM, MultiThreadSLIM
+from recpy.recommenders import ItemKNNRecommender
+from recpy.recommenders import TopPop, GlobalEffects
+from recpy.recommenders import SLIM, MultiThreadSLIM
 from recpy.utils.data_utils import read_dataset, df_to_csr
 from recpy.metrics import roc_auc, precision, recall, map, ndcg, rr
 

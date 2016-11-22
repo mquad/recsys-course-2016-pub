@@ -3,14 +3,14 @@ import logging
 from collections import OrderedDict
 from datetime import datetime as dt
 
-from recpy.recommenders.item_knn import ItemKNNRecommender
-from recpy.recommenders.non_personalized import TopPop, GlobalEffects
-from recpy.recommenders.slim import SLIM, MultiThreadSLIM
+import numpy as np
+from recpy.metrics import roc_auc, precision, recall, map, ndcg, rr
 from recpy.utils.data_utils import read_dataset, df_to_csr
 from recpy.utils.split import k_fold_cv
-from recpy.metrics import roc_auc, precision, recall, map, ndcg, rr
 
-import numpy as np
+from recpy.recommenders.item_knn import ItemKNNRecommender
+from recpy.recommenders.slim import SLIM, MultiThreadSLIM
+from recpy.recommenders.non_personalized import TopPop, GlobalEffects
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(
