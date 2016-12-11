@@ -3,13 +3,13 @@ import logging
 from collections import OrderedDict
 from datetime import datetime as dt
 
-import numpy as np
-from recpy.metrics import roc_auc, precision, recall, map, ndcg, rr
 from recpy.utils.data_utils import read_dataset, df_to_csr
 from recpy.utils.split import k_fold_cv
+from recpy.metrics import roc_auc, precision, recall, map, ndcg, rr
 
 from recpy.recommenders.item_knn import ItemKNNRecommender
 from recpy.recommenders.slim import SLIM, MultiThreadSLIM
+from recpy.recommenders.mf import FunkSVD, IALS_numpy, AsySVD
 from recpy.recommenders.non_personalized import TopPop, GlobalEffects
 
 logger = logging.getLogger(__name__)
@@ -23,6 +23,9 @@ available_recommenders = OrderedDict([
     ('item_knn', ItemKNNRecommender),
     ('SLIM', SLIM),
     ('SLIM_mt', MultiThreadSLIM),
+    ('FunkSVD', FunkSVD),
+    ('AsySVD', AsySVD),
+    ('IALS_np', IALS_numpy),
 ])
 
 # let's use an ArgumentParser to read input arguments

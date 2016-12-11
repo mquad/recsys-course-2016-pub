@@ -9,7 +9,9 @@ _directive_defaults['binding'] = True
 
 extensions = [
     Extension(name='recpy._cython._similarity',
-              sources=["recpy/_cython/_similarity.pyx"], define_macros=[('CYTHON_TRACE', '1')])
+              sources=["recpy/_cython/_similarity.pyx"], define_macros=[('CYTHON_TRACE', '1')]),
+    Extension(name='recpy._cython._mf',
+              sources=["recpy/_cython/_mf.pyx"], define_macros=[('CYTHON_TRACE', '1')]),
 ]
 
 setup(
