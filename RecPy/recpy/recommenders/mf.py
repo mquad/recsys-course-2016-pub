@@ -10,6 +10,16 @@ logging.basicConfig(
 
 
 class FunkSVD(Recommender):
+    '''
+    FunkSVD model
+    Reference: http://sifter.org/~simon/journal/20061211.html
+
+    Factorizes the rating matrix R into the dot product of two matrices U and V of latent factors.
+    U represent the user latent factors, V the item latent factors.
+    The model is learned by solving the following regularized Least-squares objective function with Stochastic Gradient Descent
+    \operatornamewithlimits{argmin} \limits_{U,V}\frac{1}{2}||R - UV^T||^2_2 + \frac{\lambda}{2}(||U||^2_F + ||V||^2_F)
+    Latent factors are initialized from a Normal distribution with given mean and std.
+    '''
     # TODO: add global effects
     def __init__(self,
                  num_factors=50,
@@ -20,6 +30,17 @@ class FunkSVD(Recommender):
                  init_std=0.1,
                  lrate_decay=1.0,
                  rnd_seed=42):
+        '''
+        Initialize the model
+        :param num_factors: number of latent factors
+        :param lrate: initial learning rate used in SGD
+        :param reg: regularization term
+        :param iters: number of iterations in training the model with SGD
+        :param init_mean: mean used to initialize the latent factors
+        :param init_std: standard deviation used to initialize the latent factors
+        :param lrate_decay: learning rate decay
+        :param rnd_seed: random seed
+        '''
         super(FunkSVD, self).__init__()
         self.num_factors = num_factors
         self.lrate = lrate
@@ -57,7 +78,20 @@ class FunkSVD(Recommender):
 
 
 class AsySVD(Recommender):
+    '''
+    AsymmetricSVD model
+    Reference: Factorization Meets the Neighborhood: a Multifaceted Collaborative Filtering Model (Koren, 2008)
+
+    Factorizes the rating matrix R into two matrices X and Y of latent factors, which both represent item latent features.
+    Users are represented by aggregating the latent features in Y of items they have already rated.
+    Rating prediction is performed by computing the dot product of this accumulated user profile with the target item's
+    latent factor in X.
+
+    The model is learned by solving the following regularized Least-squares objective function with Stochastic Gradient Descent
+    \operatornamewithlimits{argmin}\limits_{x*,y*}\frac{1}{2}\sum_{i,j \in R}(r_{ij} - x_j^T \sum_{l \in R(i)} r_{il}y_l)^2 + \frac{\lambda}{2}(\sum_{i}{||x_i||^2} + \sum_{j}{||y_j||^2})     
+    '''
     # TODO: add global effects
+    # TODO: recommendation for new-users. Update the precomputed profiles online
     def __init__(self,
                  num_factors=50,
                  lrate=0.01,
@@ -68,6 +102,17 @@ class AsySVD(Recommender):
                  lrate_decay=1.0,
                  rnd_seed=42):
         super(AsySVD, self).__init__()
+        '''
+        Initialize the model
+        :param num_factors: number of latent factors
+        :param lrate: initial learning rate used in SGD
+        :param reg: regularization term
+        :param iters: number of iterations in training the model with SGD
+        :param init_mean: mean used to initialize the latent factors
+        :param init_std: standard deviation used to initialize the latent factors
+        :param lrate_decay: learning rate decay
+        :param rnd_seed: random seed
+        '''
         self.num_factors = num_factors
         self.lrate = lrate
         self.reg = reg
@@ -106,6 +151,18 @@ class AsySVD(Recommender):
 
 
 class IALS_numpy(Recommender):
+    '''
+    Implicit Alternating Least Squares model (or Weighed Regularized Matrix Factorization)
+    Reference: Collaborative Filtering for Implicit Feedback Datasets (Hu et al., 2008)
+
+    Factorization model for implicit feedback.
+    First, splits the feedback matrix R as the element-wise a Preference matrix P and a Confidence matrix C.
+    Then computes the decomposition of them into the dot product of two matrices X and Y of latent factors.
+    X represent the user latent factors, Y the item latent factors.
+
+    The model is learned by solving the following regularized Least-squares objective function with Stochastic Gradient Descent
+    \operatornamewithlimits{argmin}\limits_{x*,y*}\frac{1}{2}\sum_{i,j}{c_{ij}(p_{ij}-x_i^T y_j) + \lambda(\sum_{i}{||x_i||^2} + \sum_{j}{||y_j||^2})}
+    '''
     # TODO: Add support for multiple confidence scaling functions
     def __init__(self,
                  num_factors=50,
@@ -116,6 +173,16 @@ class IALS_numpy(Recommender):
                  init_std=0.1,
                  rnd_seed=42):
         super(IALS_numpy, self).__init__()
+        '''
+        Initialize the model
+        :param num_factors: number of latent factors
+        :param reg: regularization term
+        :param alpha: scaling factor to compute confidence scores
+        :param iters: number of iterations in training the model with SGD
+        :param init_mean: mean used to initialize the latent factors
+        :param init_std: standard deviation used to initialize the latent factors
+        :param rnd_seed: random seed
+        '''
         self.num_factors = num_factors
         self.reg = reg
         self.iters = iters
