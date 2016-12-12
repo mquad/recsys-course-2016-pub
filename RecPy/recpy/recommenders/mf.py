@@ -61,12 +61,9 @@ class FunkSVD(Recommender):
     def fit(self, X):
         self.dataset = X
         X = check_matrix(X, 'csr', dtype=np.float32)
-        # TODO: complete the Cython function FunkSVD_sgd
-        # that returns the matrices of factors U and V 
         self.U, self.V = FunkSVD_sgd(X, self.num_factors, self.lrate, self.reg, self.iters, self.init_mean,
                                      self.init_std,
                                      self.lrate_decay, self.rnd_seed)
-
 
     def recommend(self, user_id, n=None, exclude_seen=True):
         scores = np.dot(self.U[user_id], self.V.T)
@@ -88,7 +85,7 @@ class AsySVD(Recommender):
     latent factor in X.
 
     The model is learned by solving the following regularized Least-squares objective function with Stochastic Gradient Descent
-    \operatornamewithlimits{argmin}\limits_{x*,y*}\frac{1}{2}\sum_{i,j \in R}(r_{ij} - x_j^T \sum_{l \in R(i)} r_{il}y_l)^2 + \frac{\lambda}{2}(\sum_{i}{||x_i||^2} + \sum_{j}{||y_j||^2})     
+    \operatornamewithlimits{argmin}\limits_{x*,y*}\frac{1}{2}\sum_{i,j \in R}(r_{ij} - x_j^T \sum_{l \in R(i)} r_{il}y_l)^2 + \frac{\lambda}{2}(\sum_{i}{||x_i||^2} + \sum_{j}{||y_j||^2})
     '''
     # TODO: add global effects
     # TODO: recommendation for new-users. Update the precomputed profiles online
@@ -101,7 +98,6 @@ class AsySVD(Recommender):
                  init_std=0.1,
                  lrate_decay=1.0,
                  rnd_seed=42):
-        super(AsySVD, self).__init__()
         '''
         Initialize the model
         :param num_factors: number of latent factors
@@ -113,6 +109,7 @@ class AsySVD(Recommender):
         :param lrate_decay: learning rate decay
         :param rnd_seed: random seed
         '''
+        super(AsySVD, self).__init__()
         self.num_factors = num_factors
         self.lrate = lrate
         self.reg = reg
@@ -132,8 +129,6 @@ class AsySVD(Recommender):
     def fit(self, R):
         self.dataset = R
         R = check_matrix(R, 'csr', dtype=np.float32)
-        # TODO: complete the Cython function AsySVD_sgd
-        # that returns the matrices of factors X and Y
         self.X, self.Y = AsySVD_sgd(R, self.num_factors, self.lrate, self.reg, self.iters, self.init_mean,
                                     self.init_std,
                                     self.lrate_decay, self.rnd_seed)
@@ -163,7 +158,8 @@ class IALS_numpy(Recommender):
     The model is learned by solving the following regularized Least-squares objective function with Stochastic Gradient Descent
     \operatornamewithlimits{argmin}\limits_{x*,y*}\frac{1}{2}\sum_{i,j}{c_{ij}(p_{ij}-x_i^T y_j) + \lambda(\sum_{i}{||x_i||^2} + \sum_{j}{||y_j||^2})}
     '''
-    # TODO: Add support for multiple confidence scaling functions
+
+    # TODO: Add support for multiple confidence scaling functions (e.g. linear and log scaling)
     def __init__(self,
                  num_factors=50,
                  reg=0.015,
@@ -172,7 +168,6 @@ class IALS_numpy(Recommender):
                  init_mean=0.0,
                  init_std=0.1,
                  rnd_seed=42):
-        super(IALS_numpy, self).__init__()
         '''
         Initialize the model
         :param num_factors: number of latent factors
@@ -183,6 +178,8 @@ class IALS_numpy(Recommender):
         :param init_std: standard deviation used to initialize the latent factors
         :param rnd_seed: random seed
         '''
+
+        super(IALS_numpy, self).__init__()
         self.num_factors = num_factors
         self.reg = reg
         self.iters = iters
@@ -200,13 +197,25 @@ class IALS_numpy(Recommender):
 
     def fit(self, R):
         self.dataset = R
+        # compute the confidence matrix
+        C = R.copy().tocsr()
+        # use linear scaling here
+        # TODO: add log-scaling
+        C.data = 1 + self.alpha * C.data
+        Ct = C.T.tocsr()
+        M, N = R.shape
+
         # set the seed
         np.random.seed(self.rnd_seed)
-        #
-        # TODO: learn the X and Y factors with Alternating Least Squares
-        # This time, let's use python and numpy only
-        #
-        self.X, self.Y = None, None
+
+        # initialize the latent factors
+        self.X = np.random.normal(self.init_mean, self.init_std, size=(M, self.num_factors))
+        self.Y = np.random.normal(self.init_mean, self.init_std, size=(N, self.num_factors))
+
+        for it in range(self.iters):
+            self.X = self._lsq_solver(C, self.X, self.Y, self.reg)
+            self.Y = self._lsq_solver(Ct, self.Y, self.X, self.reg)
+            logger.debug('Finished iter {}'.format(it + 1))
 
     def recommend(self, user_id, n=None, exclude_seen=True):
         scores = np.dot(self.X[user_id], self.Y.T)
@@ -215,3 +224,50 @@ class IALS_numpy(Recommender):
         if exclude_seen:
             ranking = self._filter_seen(user_id, ranking)
         return ranking[:n]
+
+    def _lsq_solver(self, C, X, Y, reg):
+        # precompute YtY
+        rows, factors = X.shape
+        YtY = np.dot(Y.T, Y)
+
+        for i in range(rows):
+            # accumulate YtCiY + reg*I in A
+            A = YtY + reg * np.eye(factors)
+
+            # accumulate Yt*Ci*p(i) in b
+            b = np.zeros(factors)
+
+            for j, cij in self._nonzeros(C, i):
+                vj = Y[j]
+                A += (cij - 1.0) * np.outer(vj, vj)
+                b += cij * vj
+
+            X[i] = np.linalg.solve(A, b)
+        return X
+
+    def _lsq_solver_fast(self, C, X, Y, reg):
+        # precompute YtY
+        rows, factors = X.shape
+        YtY = np.dot(Y.T, Y)
+
+        for i in range(rows):
+            # accumulate YtCiY + reg*I in A
+            A = YtY + reg * np.eye(factors)
+
+            start, end = C.indptr[i], C.indptr[i + 1]
+            j = C.indices[start:end]  # indices of the non-zeros in Ci
+            ci = C.data[start:end]  # non-zeros in Ci
+
+            Yj = Y[j]  # only the factors with non-zero confidence
+            # compute Yt(Ci-I)Y
+            aux = np.dot(Yj.T, np.diag(ci - 1.0))
+            A += np.dot(aux, Yj)
+            # compute YtCi
+            b = np.dot(Yj.T, ci)
+
+            X[i] = np.linalg.solve(A, b)
+        return X
+
+    def _nonzeros(self, R, row):
+        for i in range(R.indptr[row], R.indptr[row + 1]):
+            yield (R.indices[i], R.data[i])
