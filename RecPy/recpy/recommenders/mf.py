@@ -40,6 +40,8 @@ class FunkSVD(Recommender):
     def fit(self, X):
         self.dataset = X
         X = check_matrix(X, 'csr', dtype=np.float32)
+        # TODO: complete the Cython function FunkSVD_sgd
+        # that returns the matrices of factors U and V 
         self.U, self.V = FunkSVD_sgd(X, self.num_factors, self.lrate, self.reg, self.iters, self.init_mean,
                                      self.init_std,
                                      self.lrate_decay, self.rnd_seed)
@@ -85,6 +87,8 @@ class AsySVD(Recommender):
     def fit(self, R):
         self.dataset = R
         R = check_matrix(R, 'csr', dtype=np.float32)
+        # TODO: complete the Cython function AsySVD_sgd
+        # that returns the matrices of factors X and Y
         self.X, self.Y = AsySVD_sgd(R, self.num_factors, self.lrate, self.reg, self.iters, self.init_mean,
                                     self.init_std,
                                     self.lrate_decay, self.rnd_seed)
@@ -130,8 +134,10 @@ class IALS_numpy(Recommender):
     def fit(self, X):
         self.dataset = X
         #
-        #TODO: learn the U and V factors with Alternating Least Squares
+        # TODO: learn the U and V factors with Alternating Least Squares
+        # This time, let's use python and numpy only
         #
+        self.U, self.V = None, None
 
     def recommend(self, user_id, n=None, exclude_seen=True):
         scores = np.dot(self.U[user_id], self.V.T)
