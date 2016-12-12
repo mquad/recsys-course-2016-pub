@@ -198,16 +198,18 @@ class IALS_numpy(Recommender):
             self.rnd_seed
         )
 
-    def fit(self, X):
-        self.dataset = X
+    def fit(self, R):
+        self.dataset = R
+        # set the seed
+        np.random.seed(self.rnd_seed)
         #
-        # TODO: learn the U and V factors with Alternating Least Squares
+        # TODO: learn the X and Y factors with Alternating Least Squares
         # This time, let's use python and numpy only
         #
-        self.U, self.V = None, None
+        self.X, self.Y = None, None
 
     def recommend(self, user_id, n=None, exclude_seen=True):
-        scores = np.dot(self.U[user_id], self.V.T)
+        scores = np.dot(self.X[user_id], self.Y.T)
         ranking = scores.argsort()[::-1]
         # rank items
         if exclude_seen:

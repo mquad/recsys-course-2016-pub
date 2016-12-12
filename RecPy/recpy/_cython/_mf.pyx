@@ -15,6 +15,15 @@ def FunkSVD_sgd(R, num_factors=50, lrate=0.01, reg=0.015, iters=10, init_mean=0.
     cdef float [:] data = R.data
     cdef int M = R.shape[0], N = R.shape[1]
     cdef int nnz = len(R.data)
+
+    # in csr format, indices correspond to column indices
+    # let's build the vector of row_indices
+    cdef np.ndarray[np.int64_t, ndim=1] row_nnz = np.diff(indptr).astype(np.int64)
+    cdef np.ndarray[np.int64_t, ndim=1] row_indices = np.repeat(np.arange(M), row_nnz).astype(np.int64)
+
+    # set the seed of the random number generator
+    np.random.seed(rnd_seed)
+
     #
     # TODO: learn the U and V factors of FunkSVD with SGD
     #
