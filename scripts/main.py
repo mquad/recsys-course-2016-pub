@@ -8,13 +8,13 @@ from recpy.metrics import roc_auc, precision, recall, map, ndcg, rr
 
 from recpy.recommenders.item_knn import ItemKNNRecommender
 from recpy.recommenders.slim import SLIM, MultiThreadSLIM
-from recpy.recommenders.mf import FunkSVD, IALS_numpy, AsySVD
+from recpy.recommenders.mf import FunkSVD, IALS_numpy, AsySVD, BPRMF
 from recpy.recommenders.non_personalized import TopPop, GlobalEffects
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(
     level=logging.INFO,
-    format="%(asctime)s: %(name)s: %(l-evelname)s: %(message)s")
+    format="%(asctime)s: %(name)s: %(levelname)s: %(message)s")
 
 available_recommenders = OrderedDict([
     ('top_pop', TopPop),
@@ -25,12 +25,14 @@ available_recommenders = OrderedDict([
     ('FunkSVD', FunkSVD),
     ('AsySVD', AsySVD),
     ('IALS_np', IALS_numpy),
+    ('BPRMF', BPRMF),
 ])
 
 # let's use an ArgumentParser to read input arguments
 parser = argparse.ArgumentParser()
 parser.add_argument('train')
 parser.add_argument('test')
+parser.add_argument('--is_implicit', action='store_true', default=False)
 parser.add_argument('--header', type=int, default=None)
 parser.add_argument('--columns', type=str, default=None)
 parser.add_argument('--sep', type=str, default=',')
@@ -68,8 +70,8 @@ logger.info('Reading {}'.format(args.test))
 test_df = read_dataset(args.test, sep=',', header=0)
 
 nusers, nitems = train_df.user_idx.max()+1, train_df.item_idx.max()+1
-train = df_to_csr(train_df, nrows=nusers, ncols=nitems)
-test = df_to_csr(test_df, nrows=nusers, ncols=nitems)
+train = df_to_csr(train_df, is_implicit=args.is_implicit, nrows=nusers, ncols=nitems)
+test = df_to_csr(test_df, is_implicit=args.is_implicit, nrows=nusers, ncols=nitems)
 
 # train the recommender
 recommender = RecommenderClass(**init_args)
@@ -91,6 +93,7 @@ if args.prediction_file:
 roc_auc_, precision_, recall_, map_, mrr_, ndcg_ = 0.0, 0.0, 0.0, 0.0, 0.0, 0.0
 at = args.rec_length
 n_eval = 0
+
 for test_user in range(nusers):
     user_profile = train[test_user]
     relevant_items = test[test_user].indices

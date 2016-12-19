@@ -1,0 +1,1584 @@
+2016-12-18 15:36:53,371: recpy.utils.data_utils: INFO: Columns: ['index' 'user_id' 'item_id' 'rating' 'ts' 'item_idx' 'user_idx']
+2016-12-18 15:36:53,381: recpy.utils.data_utils: INFO: Columns: ['index' 'user_id' 'item_id' 'rating' 'ts' 'item_idx' 'user_idx']
+2016-12-18 15:36:53,393: __main__: INFO: Recommender: TopPop
+2016-12-18 15:36:53,393: __main__: INFO: Training started
+2016-12-18 15:36:53,394: __main__: INFO: Training completed in 0:00:00.001199
+2016-12-18 15:36:54,181: __main__: INFO: Metrics: (0.85800177591240001, 0.11838074398249417, 0.11219352388023149, 0.076548085945619029, 0.31843718523149561, 0.11789417123580984)
+2016-12-18 15:36:54,181: __main__: INFO: Tuning GlobalEffects with GridSearchCV
+2016-12-18 15:36:54,181: recpy.utils.tuning: INFO: Size of the parameter space: 25 (125 cv trials)
+2016-12-18 15:36:54,283: recpy.utils.tuning: INFO: Iteration 1/25: {'lambda_item': 10, 'lambda_user': 10}
+2016-12-18 15:36:56,017: recpy.utils.tuning: INFO: Result: 0.6635
+2016-12-18 15:36:56,017: recpy.utils.tuning: INFO: Iteration 2/25: {'lambda_item': 10, 'lambda_user': 30}
+2016-12-18 15:36:57,774: recpy.utils.tuning: INFO: Result: 0.6635
+2016-12-18 15:36:57,774: recpy.utils.tuning: INFO: Iteration 3/25: {'lambda_item': 10, 'lambda_user': 50}
+2016-12-18 15:36:59,572: recpy.utils.tuning: INFO: Result: 0.6635
+2016-12-18 15:36:59,572: recpy.utils.tuning: INFO: Iteration 4/25: {'lambda_item': 10, 'lambda_user': 70}
+2016-12-18 15:37:01,371: recpy.utils.tuning: INFO: Result: 0.6635
+2016-12-18 15:37:01,371: recpy.utils.tuning: INFO: Iteration 5/25: {'lambda_item': 10, 'lambda_user': 90}
+2016-12-18 15:37:03,161: recpy.utils.tuning: INFO: Result: 0.6635
+2016-12-18 15:37:03,161: recpy.utils.tuning: INFO: Iteration 6/25: {'lambda_item': 30, 'lambda_user': 10}
+2016-12-18 15:37:04,938: recpy.utils.tuning: INFO: Result: 0.6635
+2016-12-18 15:37:04,938: recpy.utils.tuning: INFO: Iteration 7/25: {'lambda_item': 30, 'lambda_user': 30}
+2016-12-18 15:37:06,733: recpy.utils.tuning: INFO: Result: 0.6635
+2016-12-18 15:37:06,733: recpy.utils.tuning: INFO: Iteration 8/25: {'lambda_item': 30, 'lambda_user': 50}
+2016-12-18 15:37:08,520: recpy.utils.tuning: INFO: Result: 0.6635
+2016-12-18 15:37:08,520: recpy.utils.tuning: INFO: Iteration 9/25: {'lambda_item': 30, 'lambda_user': 70}
+2016-12-18 15:37:10,361: recpy.utils.tuning: INFO: Result: 0.6635
+2016-12-18 15:37:10,361: recpy.utils.tuning: INFO: Iteration 10/25: {'lambda_item': 30, 'lambda_user': 90}
+2016-12-18 15:37:12,171: recpy.utils.tuning: INFO: Result: 0.6635
+2016-12-18 15:37:12,171: recpy.utils.tuning: INFO: Iteration 11/25: {'lambda_item': 50, 'lambda_user': 10}
+2016-12-18 15:37:13,985: recpy.utils.tuning: INFO: Result: 0.6635
+2016-12-18 15:37:13,985: recpy.utils.tuning: INFO: Iteration 12/25: {'lambda_item': 50, 'lambda_user': 30}
+2016-12-18 15:37:16,802: recpy.utils.tuning: INFO: Result: 0.6635
+2016-12-18 15:37:16,802: recpy.utils.tuning: INFO: Iteration 13/25: {'lambda_item': 50, 'lambda_user': 50}
+2016-12-18 15:37:18,759: recpy.utils.tuning: INFO: Result: 0.6635
+2016-12-18 15:37:18,759: recpy.utils.tuning: INFO: Iteration 14/25: {'lambda_item': 50, 'lambda_user': 70}
+2016-12-18 15:37:20,699: recpy.utils.tuning: INFO: Result: 0.6635
+2016-12-18 15:37:20,699: recpy.utils.tuning: INFO: Iteration 15/25: {'lambda_item': 50, 'lambda_user': 90}
+2016-12-18 15:37:22,506: recpy.utils.tuning: INFO: Result: 0.6635
+2016-12-18 15:37:22,506: recpy.utils.tuning: INFO: Iteration 16/25: {'lambda_item': 70, 'lambda_user': 10}
+2016-12-18 15:37:24,424: recpy.utils.tuning: INFO: Result: 0.6635
+2016-12-18 15:37:24,424: recpy.utils.tuning: INFO: Iteration 17/25: {'lambda_item': 70, 'lambda_user': 30}
+2016-12-18 15:37:26,204: recpy.utils.tuning: INFO: Result: 0.6635
+2016-12-18 15:37:26,204: recpy.utils.tuning: INFO: Iteration 18/25: {'lambda_item': 70, 'lambda_user': 50}
+2016-12-18 15:37:27,961: recpy.utils.tuning: INFO: Result: 0.6635
+2016-12-18 15:37:27,961: recpy.utils.tuning: INFO: Iteration 19/25: {'lambda_item': 70, 'lambda_user': 70}
+2016-12-18 15:37:29,717: recpy.utils.tuning: INFO: Result: 0.6635
+2016-12-18 15:37:29,717: recpy.utils.tuning: INFO: Iteration 20/25: {'lambda_item': 70, 'lambda_user': 90}
+2016-12-18 15:37:31,495: recpy.utils.tuning: INFO: Result: 0.6635
+2016-12-18 15:37:31,495: recpy.utils.tuning: INFO: Iteration 21/25: {'lambda_item': 90, 'lambda_user': 10}
+2016-12-18 15:37:33,258: recpy.utils.tuning: INFO: Result: 0.6635
+2016-12-18 15:37:33,258: recpy.utils.tuning: INFO: Iteration 22/25: {'lambda_item': 90, 'lambda_user': 30}
+2016-12-18 15:37:35,000: recpy.utils.tuning: INFO: Result: 0.6635
+2016-12-18 15:37:35,001: recpy.utils.tuning: INFO: Iteration 23/25: {'lambda_item': 90, 'lambda_user': 50}
+2016-12-18 15:37:36,746: recpy.utils.tuning: INFO: Result: 0.6635
+2016-12-18 15:37:36,746: recpy.utils.tuning: INFO: Iteration 24/25: {'lambda_item': 90, 'lambda_user': 70}
+2016-12-18 15:37:38,522: recpy.utils.tuning: INFO: Result: 0.6635
+2016-12-18 15:37:38,522: recpy.utils.tuning: INFO: Iteration 25/25: {'lambda_item': 90, 'lambda_user': 90}
+2016-12-18 15:37:40,253: recpy.utils.tuning: INFO: Result: 0.6635
+2016-12-18 15:37:40,254: __main__: INFO: Best configuration:
+2016-12-18 15:37:40,254: __main__: INFO: {'lambda_item': 90, 'lambda_user': 90}
+2016-12-18 15:37:40,254: __main__: INFO: CV score: 0.6635
+2016-12-18 15:37:40,254: __main__: INFO: Recommender: GlobalEffects
+2016-12-18 15:37:40,254: __main__: INFO: Training started
+2016-12-18 15:37:40,257: __main__: INFO: Training completed in 0:00:00.002898
+2016-12-18 15:37:40,993: __main__: INFO: Metrics: (0.66483315873829474, 0.010065645514223178, 0.012043214304690983, 0.0026257745682761288, 0.015914261401132286, 0.0076671486386226352)
+2016-12-18 15:37:40,993: __main__: INFO: Tuning ItemKNNRecommender with GridSearchCV
+2016-12-18 15:37:40,993: recpy.utils.tuning: INFO: Size of the parameter space: 15 (75 cv trials)
+2016-12-18 15:37:41,097: recpy.utils.tuning: INFO: Iteration 1/15: {'k': 50, 'similarity': 'cosine', 'shrinkage': 0}
+2016-12-18 15:37:49,966: recpy.utils.tuning: INFO: Result: 0.8900
+2016-12-18 15:37:49,966: recpy.utils.tuning: INFO: Iteration 2/15: {'k': 50, 'similarity': 'cosine', 'shrinkage': 20}
+2016-12-18 15:37:58,914: recpy.utils.tuning: INFO: Result: 0.9014
+2016-12-18 15:37:58,914: recpy.utils.tuning: INFO: Iteration 3/15: {'k': 50, 'similarity': 'cosine', 'shrinkage': 40}
+2016-12-18 15:38:08,559: recpy.utils.tuning: INFO: Result: 0.8995
+2016-12-18 15:38:08,560: recpy.utils.tuning: INFO: Iteration 4/15: {'k': 50, 'similarity': 'cosine', 'shrinkage': 60}
+2016-12-18 15:38:17,583: recpy.utils.tuning: INFO: Result: 0.8985
+2016-12-18 15:38:17,583: recpy.utils.tuning: INFO: Iteration 5/15: {'k': 50, 'similarity': 'cosine', 'shrinkage': 80}
+2016-12-18 15:38:26,560: recpy.utils.tuning: INFO: Result: 0.8981
+2016-12-18 15:38:26,560: recpy.utils.tuning: INFO: Iteration 6/15: {'k': 100, 'similarity': 'cosine', 'shrinkage': 0}
+2016-12-18 15:38:40,205: recpy.utils.tuning: INFO: Result: 0.9017
+2016-12-18 15:38:40,205: recpy.utils.tuning: INFO: Iteration 7/15: {'k': 100, 'similarity': 'cosine', 'shrinkage': 20}
+2016-12-18 15:38:53,428: recpy.utils.tuning: INFO: Result: 0.8999
+2016-12-18 15:38:53,428: recpy.utils.tuning: INFO: Iteration 8/15: {'k': 100, 'similarity': 'cosine', 'shrinkage': 40}
+2016-12-18 15:39:06,584: recpy.utils.tuning: INFO: Result: 0.8976
+2016-12-18 15:39:06,584: recpy.utils.tuning: INFO: Iteration 9/15: {'k': 100, 'similarity': 'cosine', 'shrinkage': 60}
+2016-12-18 15:39:19,661: recpy.utils.tuning: INFO: Result: 0.8963
+2016-12-18 15:39:19,661: recpy.utils.tuning: INFO: Iteration 10/15: {'k': 100, 'similarity': 'cosine', 'shrinkage': 80}
+2016-12-18 15:39:32,680: recpy.utils.tuning: INFO: Result: 0.8957
+2016-12-18 15:39:32,682: recpy.utils.tuning: INFO: Iteration 11/15: {'k': 150, 'similarity': 'cosine', 'shrinkage': 0}
+2016-12-18 15:39:50,985: recpy.utils.tuning: INFO: Result: 0.9047
+2016-12-18 15:39:50,985: recpy.utils.tuning: INFO: Iteration 12/15: {'k': 150, 'similarity': 'cosine', 'shrinkage': 20}
+2016-12-18 15:40:08,674: recpy.utils.tuning: INFO: Result: 0.8965
+2016-12-18 15:40:08,674: recpy.utils.tuning: INFO: Iteration 13/15: {'k': 150, 'similarity': 'cosine', 'shrinkage': 40}
+2016-12-18 15:40:26,214: recpy.utils.tuning: INFO: Result: 0.8940
+2016-12-18 15:40:26,215: recpy.utils.tuning: INFO: Iteration 14/15: {'k': 150, 'similarity': 'cosine', 'shrinkage': 60}
+2016-12-18 15:40:43,752: recpy.utils.tuning: INFO: Result: 0.8930
+2016-12-18 15:40:43,752: recpy.utils.tuning: INFO: Iteration 15/15: {'k': 150, 'similarity': 'cosine', 'shrinkage': 80}
+2016-12-18 15:41:01,442: recpy.utils.tuning: INFO: Result: 0.8924
+2016-12-18 15:41:01,444: __main__: INFO: Best configuration:
+2016-12-18 15:41:01,444: __main__: INFO: {'k': 150, 'similarity': 'cosine', 'shrinkage': 0}
+2016-12-18 15:41:01,444: __main__: INFO: CV score: 0.9047
+2016-12-18 15:41:01,444: __main__: INFO: Recommender: ItemKNN(similarity=cosine,k=150,shrinkage=0,normalize=False,sparse_weights=True)
+2016-12-18 15:41:01,444: __main__: INFO: Training started
+2016-12-18 15:41:01,755: __main__: INFO: Training completed in 0:00:00.310712
+2016-12-18 15:41:05,598: __main__: INFO: Metrics: (0.91809430397823133, 0.21312910284463768, 0.22408350377648401, 0.16635250478544611, 0.47591912403181497, 0.22326601045593392)
+2016-12-18 15:41:05,598: __main__: INFO: Tuning MultiThreadSLIM with GridSearchCV
+2016-12-18 15:41:05,598: recpy.utils.tuning: INFO: Size of the parameter space: 25 (125 cv trials)
+2016-12-18 15:41:05,700: recpy.utils.tuning: INFO: Iteration 1/25: {'l1_penalty': 0.0001, 'l2_penalty': 0.0001}
+2016-12-18 15:41:31,660: recpy.utils.tuning: INFO: Result: 0.6635
+2016-12-18 15:41:31,661: recpy.utils.tuning: INFO: Iteration 2/25: {'l1_penalty': 0.0001, 'l2_penalty': 0.0031622776601683794}
+2016-12-18 15:41:58,040: recpy.utils.tuning: INFO: Result: 0.7869
+2016-12-18 15:41:58,041: recpy.utils.tuning: INFO: Iteration 3/25: {'l1_penalty': 0.0001, 'l2_penalty': 0.10000000000000001}
+2016-12-18 15:42:43,459: recpy.utils.tuning: INFO: Result: 0.9032
+2016-12-18 15:42:43,460: recpy.utils.tuning: INFO: Iteration 4/25: {'l1_penalty': 0.0001, 'l2_penalty': 3.1622776601683795}
+2016-12-18 15:43:44,221: recpy.utils.tuning: INFO: Result: 0.9070
+2016-12-18 15:43:44,222: recpy.utils.tuning: INFO: Iteration 5/25: {'l1_penalty': 0.0001, 'l2_penalty': 100.0}
+2016-12-18 15:44:46,732: recpy.utils.tuning: INFO: Result: 0.9070
+2016-12-18 15:44:46,733: recpy.utils.tuning: INFO: Iteration 6/25: {'l1_penalty': 0.0031622776601683794, 'l2_penalty': 0.0001}
+2016-12-18 15:45:13,333: recpy.utils.tuning: INFO: Result: 0.6635
+2016-12-18 15:45:13,334: recpy.utils.tuning: INFO: Iteration 7/25: {'l1_penalty': 0.0031622776601683794, 'l2_penalty': 0.0031622776601683794}
+2016-12-18 15:45:40,950: recpy.utils.tuning: INFO: Result: 0.6635
+2016-12-18 15:45:40,951: recpy.utils.tuning: INFO: Iteration 8/25: {'l1_penalty': 0.0031622776601683794, 'l2_penalty': 0.10000000000000001}
+2016-12-18 15:46:11,997: recpy.utils.tuning: INFO: Result: 0.7869
+2016-12-18 15:46:11,998: recpy.utils.tuning: INFO: Iteration 9/25: {'l1_penalty': 0.0031622776601683794, 'l2_penalty': 3.1622776601683795}
+2016-12-18 15:46:58,857: recpy.utils.tuning: INFO: Result: 0.9032
+2016-12-18 15:46:58,858: recpy.utils.tuning: INFO: Iteration 10/25: {'l1_penalty': 0.0031622776601683794, 'l2_penalty': 100.0}
+2016-12-18 15:48:02,078: recpy.utils.tuning: INFO: Result: 0.9070
+2016-12-18 15:48:02,079: recpy.utils.tuning: INFO: Iteration 11/25: {'l1_penalty': 0.10000000000000001, 'l2_penalty': 0.0001}
+2016-12-18 15:48:29,004: recpy.utils.tuning: INFO: Result: 0.6635
+2016-12-18 15:48:29,005: recpy.utils.tuning: INFO: Iteration 12/25: {'l1_penalty': 0.10000000000000001, 'l2_penalty': 0.0031622776601683794}
+2016-12-18 15:48:55,844: recpy.utils.tuning: INFO: Result: 0.6635
+2016-12-18 15:48:55,845: recpy.utils.tuning: INFO: Iteration 13/25: {'l1_penalty': 0.10000000000000001, 'l2_penalty': 0.10000000000000001}
+2016-12-18 15:49:22,985: recpy.utils.tuning: INFO: Result: 0.6635
+2016-12-18 15:49:22,986: recpy.utils.tuning: INFO: Iteration 14/25: {'l1_penalty': 0.10000000000000001, 'l2_penalty': 3.1622776601683795}
+2016-12-18 15:49:50,541: recpy.utils.tuning: INFO: Result: 0.7869
+2016-12-18 15:49:50,541: recpy.utils.tuning: INFO: Iteration 15/25: {'l1_penalty': 0.10000000000000001, 'l2_penalty': 100.0}
+2016-12-18 15:50:38,248: recpy.utils.tuning: INFO: Result: 0.9032
+2016-12-18 15:50:38,249: recpy.utils.tuning: INFO: Iteration 16/25: {'l1_penalty': 3.1622776601683795, 'l2_penalty': 0.0001}
+2016-12-18 15:51:05,942: recpy.utils.tuning: INFO: Result: 0.6635
+2016-12-18 15:51:05,943: recpy.utils.tuning: INFO: Iteration 17/25: {'l1_penalty': 3.1622776601683795, 'l2_penalty': 0.0031622776601683794}
+2016-12-18 15:51:33,880: recpy.utils.tuning: INFO: Result: 0.6635
+2016-12-18 15:51:33,881: recpy.utils.tuning: INFO: Iteration 18/25: {'l1_penalty': 3.1622776601683795, 'l2_penalty': 0.10000000000000001}
+2016-12-18 15:52:01,284: recpy.utils.tuning: INFO: Result: 0.6635
+2016-12-18 15:52:01,284: recpy.utils.tuning: INFO: Iteration 19/25: {'l1_penalty': 3.1622776601683795, 'l2_penalty': 3.1622776601683795}
+2016-12-18 15:52:29,015: recpy.utils.tuning: INFO: Result: 0.6635
+2016-12-18 15:52:29,015: recpy.utils.tuning: INFO: Iteration 20/25: {'l1_penalty': 3.1622776601683795, 'l2_penalty': 100.0}
+2016-12-18 15:52:57,382: recpy.utils.tuning: INFO: Result: 0.7869
+2016-12-18 15:52:57,382: recpy.utils.tuning: INFO: Iteration 21/25: {'l1_penalty': 100.0, 'l2_penalty': 0.0001}
+2016-12-18 15:53:26,000: recpy.utils.tuning: INFO: Result: 0.6635
+2016-12-18 15:53:26,000: recpy.utils.tuning: INFO: Iteration 22/25: {'l1_penalty': 100.0, 'l2_penalty': 0.0031622776601683794}
+2016-12-18 15:53:54,354: recpy.utils.tuning: INFO: Result: 0.6635
+2016-12-18 15:53:54,354: recpy.utils.tuning: INFO: Iteration 23/25: {'l1_penalty': 100.0, 'l2_penalty': 0.10000000000000001}
+2016-12-18 15:54:23,018: recpy.utils.tuning: INFO: Result: 0.6635
+2016-12-18 15:54:23,019: recpy.utils.tuning: INFO: Iteration 24/25: {'l1_penalty': 100.0, 'l2_penalty': 3.1622776601683795}
+2016-12-18 15:54:51,749: recpy.utils.tuning: INFO: Result: 0.6635
+2016-12-18 15:54:51,750: recpy.utils.tuning: INFO: Iteration 25/25: {'l1_penalty': 100.0, 'l2_penalty': 100.0}
+2016-12-18 15:55:21,048: recpy.utils.tuning: INFO: Result: 0.6635
+2016-12-18 15:55:21,054: __main__: INFO: Best configuration:
+2016-12-18 15:55:21,054: __main__: INFO: {'l1_penalty': 0.0001, 'l2_penalty': 100.0}
+2016-12-18 15:55:21,055: __main__: INFO: CV score: 0.9070
+2016-12-18 15:55:21,055: __main__: INFO: Recommender: SLIM_mt (l1_penalty=0.0001,l2_penalty=100.0,positive_only=True,workers=4)
+2016-12-18 15:55:21,055: __main__: INFO: Training started
+2016-12-18 15:55:25,839: __main__: INFO: Training completed in 0:00:04.783923
+2016-12-18 15:55:34,513: __main__: INFO: Metrics: (0.91944368560254963, 0.21695842450765734, 0.23058587099761474, 0.17744239409030516, 0.51678345663575365, 0.23756008819805324)
+2016-12-18 15:55:34,514: __main__: INFO: Tuning FunkSVD with GridSearchCV
+2016-12-18 15:55:34,514: recpy.utils.tuning: INFO: Size of the parameter space: 25 (125 cv trials)
+2016-12-18 15:55:34,646: recpy.utils.tuning: INFO: Iteration 1/25: {'lrate': 0.0001, 'num_factors': 20, 'iters': 10, 'reg': 0.001}
+2016-12-18 15:56:10,475: recpy.utils.tuning: INFO: Result: 0.5014
+2016-12-18 15:56:10,475: recpy.utils.tuning: INFO: Iteration 2/25: {'lrate': 0.0001, 'num_factors': 20, 'iters': 10, 'reg': 0.01}
+2016-12-18 15:56:46,505: recpy.utils.tuning: INFO: Result: 0.5014
+2016-12-18 15:56:46,505: recpy.utils.tuning: INFO: Iteration 3/25: {'lrate': 0.0001, 'num_factors': 20, 'iters': 10, 'reg': 0.10000000000000001}
+2016-12-18 15:57:22,656: recpy.utils.tuning: INFO: Result: 0.5014
+2016-12-18 15:57:22,656: recpy.utils.tuning: INFO: Iteration 4/25: {'lrate': 0.0001, 'num_factors': 20, 'iters': 10, 'reg': 1.0}
+2016-12-18 15:57:58,804: recpy.utils.tuning: INFO: Result: 0.5014
+2016-12-18 15:57:58,804: recpy.utils.tuning: INFO: Iteration 5/25: {'lrate': 0.0001, 'num_factors': 20, 'iters': 10, 'reg': 10.0}
+2016-12-18 15:58:34,437: recpy.utils.tuning: INFO: Result: 0.5012
+2016-12-18 15:58:34,437: recpy.utils.tuning: INFO: Iteration 6/25: {'lrate': 0.0005623413251903491, 'num_factors': 20, 'iters': 10, 'reg': 0.001}
+2016-12-18 15:59:10,939: recpy.utils.tuning: INFO: Result: 0.5012
+2016-12-18 15:59:10,939: recpy.utils.tuning: INFO: Iteration 7/25: {'lrate': 0.0005623413251903491, 'num_factors': 20, 'iters': 10, 'reg': 0.01}
+2016-12-18 15:59:47,206: recpy.utils.tuning: INFO: Result: 0.5012
+2016-12-18 15:59:47,206: recpy.utils.tuning: INFO: Iteration 8/25: {'lrate': 0.0005623413251903491, 'num_factors': 20, 'iters': 10, 'reg': 0.10000000000000001}
+Iter 1 - loss: 1.0018
+Iter 2 - loss: 1.0017
+Iter 3 - loss: 1.0016
+Iter 4 - loss: 1.0015
+Iter 5 - loss: 1.0014
+Iter 6 - loss: 1.0014
+Iter 7 - loss: 1.0013
+Iter 8 - loss: 1.0012
+Iter 9 - loss: 1.0011
+Iter 10 - loss: 1.0011
+Iter 1 - loss: 1.0017
+Iter 2 - loss: 1.0016
+Iter 3 - loss: 1.0016
+Iter 4 - loss: 1.0015
+Iter 5 - loss: 1.0014
+Iter 6 - loss: 1.0013
+Iter 7 - loss: 1.0012
+Iter 8 - loss: 1.0012
+Iter 9 - loss: 1.0011
+Iter 10 - loss: 1.0010
+Iter 1 - loss: 1.0018
+Iter 2 - loss: 1.0017
+Iter 3 - loss: 1.0017
+Iter 4 - loss: 1.0016
+Iter 5 - loss: 1.0015
+Iter 6 - loss: 1.0014
+Iter 7 - loss: 1.0013
+Iter 8 - loss: 1.0013
+Iter 9 - loss: 1.0012
+Iter 10 - loss: 1.0011
+Iter 1 - loss: 1.0017
+Iter 2 - loss: 1.0016
+Iter 3 - loss: 1.0016
+Iter 4 - loss: 1.0015
+Iter 5 - loss: 1.0014
+Iter 6 - loss: 1.0013
+Iter 7 - loss: 1.0012
+Iter 8 - loss: 1.0012
+Iter 9 - loss: 1.0011
+Iter 10 - loss: 1.0010
+Iter 1 - loss: 1.0020
+Iter 2 - loss: 1.0019
+Iter 3 - loss: 1.0019
+Iter 4 - loss: 1.0018
+Iter 5 - loss: 1.0017
+Iter 6 - loss: 1.0016
+Iter 7 - loss: 1.0016
+Iter 8 - loss: 1.0015
+Iter 9 - loss: 1.0014
+Iter 10 - loss: 1.0013
+Iter 1 - loss: 1.0017
+Iter 2 - loss: 1.0017
+Iter 3 - loss: 1.0016
+Iter 4 - loss: 1.0015
+Iter 5 - loss: 1.0014
+Iter 6 - loss: 1.0014
+Iter 7 - loss: 1.0013
+Iter 8 - loss: 1.0012
+Iter 9 - loss: 1.0011
+Iter 10 - loss: 1.0011
+Iter 1 - loss: 1.0017
+Iter 2 - loss: 1.0016
+Iter 3 - loss: 1.0016
+Iter 4 - loss: 1.0015
+Iter 5 - loss: 1.0014
+Iter 6 - loss: 1.0013
+Iter 7 - loss: 1.0012
+Iter 8 - loss: 1.0012
+Iter 9 - loss: 1.0011
+Iter 10 - loss: 1.0010
+Iter 1 - loss: 1.0018
+Iter 2 - loss: 1.0017
+Iter 3 - loss: 1.0017
+Iter 4 - loss: 1.0016
+Iter 5 - loss: 1.0015
+Iter 6 - loss: 1.0014
+Iter 7 - loss: 1.0013
+Iter 8 - loss: 1.0013
+Iter 9 - loss: 1.0012
+Iter 10 - loss: 1.0011
+Iter 1 - loss: 1.0017
+Iter 2 - loss: 1.0016
+Iter 3 - loss: 1.0015
+Iter 4 - loss: 1.0015
+Iter 5 - loss: 1.0014
+Iter 6 - loss: 1.0013
+Iter 7 - loss: 1.0012
+Iter 8 - loss: 1.0012
+Iter 9 - loss: 1.0011
+Iter 10 - loss: 1.0010
+Iter 1 - loss: 1.0020
+Iter 2 - loss: 1.0019
+Iter 3 - loss: 1.0019
+Iter 4 - loss: 1.0018
+Iter 5 - loss: 1.0017
+Iter 6 - loss: 1.0016
+Iter 7 - loss: 1.0016
+Iter 8 - loss: 1.0015
+Iter 9 - loss: 1.0014
+Iter 10 - loss: 1.0013
+Iter 1 - loss: 1.0017
+Iter 2 - loss: 1.0017
+Iter 3 - loss: 1.0016
+Iter 4 - loss: 1.0015
+Iter 5 - loss: 1.0014
+Iter 6 - loss: 1.0013
+Iter 7 - loss: 1.0013
+Iter 8 - loss: 1.0012
+Iter 9 - loss: 1.0011
+Iter 10 - loss: 1.0010
+Iter 1 - loss: 1.0017
+Iter 2 - loss: 1.0016
+Iter 3 - loss: 1.0015
+Iter 4 - loss: 1.0015
+Iter 5 - loss: 1.0014
+Iter 6 - loss: 1.0013
+Iter 7 - loss: 1.0012
+Iter 8 - loss: 1.0011
+Iter 9 - loss: 1.0010
+Iter 10 - loss: 1.0010
+Iter 1 - loss: 1.0018
+Iter 2 - loss: 1.0017
+Iter 3 - loss: 1.0016
+Iter 4 - loss: 1.0016
+Iter 5 - loss: 1.0015
+Iter 6 - loss: 1.0014
+Iter 7 - loss: 1.0013
+Iter 8 - loss: 1.0012
+Iter 9 - loss: 1.0012
+Iter 10 - loss: 1.0011
+Iter 1 - loss: 1.0017
+Iter 2 - loss: 1.0016
+Iter 3 - loss: 1.0015
+Iter 4 - loss: 1.0015
+Iter 5 - loss: 1.0014
+Iter 6 - loss: 1.0013
+Iter 7 - loss: 1.0012
+Iter 8 - loss: 1.0011
+Iter 9 - loss: 1.0011
+Iter 10 - loss: 1.0010
+Iter 1 - loss: 1.0020
+Iter 2 - loss: 1.0019
+Iter 3 - loss: 1.0019
+Iter 4 - loss: 1.0018
+Iter 5 - loss: 1.0017
+Iter 6 - loss: 1.0016
+Iter 7 - loss: 1.0015
+Iter 8 - loss: 1.0014
+Iter 9 - loss: 1.0014
+Iter 10 - loss: 1.0013
+Iter 1 - loss: 1.0017
+Iter 2 - loss: 1.0016
+Iter 3 - loss: 1.0015
+Iter 4 - loss: 1.0013
+Iter 5 - loss: 1.0012
+Iter 6 - loss: 1.0011
+Iter 7 - loss: 1.0010
+Iter 8 - loss: 1.0009
+Iter 9 - loss: 1.0008
+Iter 10 - loss: 1.0007
+Iter 1 - loss: 1.0017
+Iter 2 - loss: 1.0015
+Iter 3 - loss: 1.0014
+Iter 4 - loss: 1.0013
+Iter 5 - loss: 1.0012
+Iter 6 - loss: 1.0011
+Iter 7 - loss: 1.0009
+Iter 8 - loss: 1.0008
+Iter 9 - loss: 1.0007
+Iter 10 - loss: 1.0006
+Iter 1 - loss: 1.0018
+Iter 2 - loss: 1.0017
+Iter 3 - loss: 1.0015
+Iter 4 - loss: 1.0014
+Iter 5 - loss: 1.0013
+Iter 6 - loss: 1.0012
+Iter 7 - loss: 1.0011
+Iter 8 - loss: 1.0009
+Iter 9 - loss: 1.0008
+Iter 10 - loss: 1.0007
+Iter 1 - loss: 1.0017
+Iter 2 - loss: 1.0015
+Iter 3 - loss: 1.0014
+Iter 4 - loss: 1.0013
+Iter 5 - loss: 1.0012
+Iter 6 - loss: 1.0011
+Iter 7 - loss: 1.0010
+Iter 8 - loss: 1.0009
+Iter 9 - loss: 1.0008
+Iter 10 - loss: 1.0007
+Iter 1 - loss: 1.0020
+Iter 2 - loss: 1.0019
+Iter 3 - loss: 1.0017
+Iter 4 - loss: 1.0016
+Iter 5 - loss: 1.0015
+Iter 6 - loss: 1.0014
+Iter 7 - loss: 1.0012
+Iter 8 - loss: 1.0011
+Iter 9 - loss: 1.0010
+Iter 10 - loss: 1.0009
+Iter 1 - loss: 1.0015
+Iter 2 - loss: 1.0010
+Iter 3 - loss: 1.0007
+Iter 4 - loss: 1.0005
+Iter 5 - loss: 1.0003
+Iter 6 - loss: 1.0002
+Iter 7 - loss: 1.0001
+Iter 8 - loss: 1.0000
+Iter 9 - loss: 1.0000
+Iter 10 - loss: 0.9999
+Iter 1 - loss: 1.0014
+Iter 2 - loss: 1.0010
+Iter 3 - loss: 1.0006
+Iter 4 - loss: 1.0004
+Iter 5 - loss: 1.0002
+Iter 6 - loss: 1.0001
+Iter 7 - loss: 1.0000
+Iter 8 - loss: 0.9999
+Iter 9 - loss: 0.9999
+Iter 10 - loss: 0.9998
+Iter 1 - loss: 1.0016
+Iter 2 - loss: 1.0011
+Iter 3 - loss: 1.0007
+Iter 4 - loss: 1.0005
+Iter 5 - loss: 1.0003
+Iter 6 - loss: 1.0001
+Iter 7 - loss: 1.0000
+Iter 8 - loss: 1.0000
+Iter 9 - loss: 0.9999
+Iter 10 - loss: 0.9999
+Iter 1 - loss: 1.0015
+Iter 2 - loss: 1.0010
+Iter 3 - loss: 1.0007
+Iter 4 - loss: 1.0005
+Iter 5 - loss: 1.0003
+Iter 6 - loss: 1.0002
+Iter 7 - loss: 1.0001
+Iter 8 - loss: 1.0000
+Iter 9 - loss: 1.0000
+Iter 10 - loss: 0.9999
+Iter 1 - loss: 1.0018
+Iter 2 - loss: 1.0013
+Iter 3 - loss: 1.0009
+Iter 4 - loss: 1.0007
+Iter 5 - loss: 1.0005
+Iter 6 - loss: 1.0003
+Iter 7 - loss: 1.0002
+Iter 8 - loss: 1.0001
+Iter 9 - loss: 1.0001
+Iter 10 - loss: 1.0000
+Iter 1 - loss: 1.0018
+Iter 2 - loss: 1.0013
+Iter 3 - loss: 1.0009
+Iter 4 - loss: 1.0005
+Iter 5 - loss: 1.0000
+Iter 6 - loss: 0.9996
+Iter 7 - loss: 0.9992
+Iter 8 - loss: 0.9987
+Iter 9 - loss: 0.9983
+Iter 10 - loss: 0.9979
+Iter 1 - loss: 1.0017
+Iter 2 - loss: 1.0013
+Iter 3 - loss: 1.0008
+Iter 4 - loss: 1.0004
+Iter 5 - loss: 1.0000
+Iter 6 - loss: 0.9995
+Iter 7 - loss: 0.9991
+Iter 8 - loss: 0.9986
+Iter 9 - loss: 0.9982
+Iter 10 - loss: 0.9977
+Iter 1 - loss: 1.0018
+Iter 2 - loss: 1.0014
+Iter 3 - loss: 1.0010
+Iter 4 - loss: 1.0005
+Iter 5 - loss: 1.0001
+Iter 6 - loss: 0.9997
+Iter 7 - loss: 0.9992
+Iter 8 - loss: 0.9988
+Iter 9 - loss: 0.9984
+Iter 10 - loss: 0.9979
+Iter 1 - loss: 1.0017
+Iter 2 - loss: 1.0013
+Iter 3 - loss: 1.0008
+Iter 4 - loss: 1.0004
+Iter 5 - loss: 1.0000
+Iter 6 - loss: 0.9995
+Iter 7 - loss: 0.9991
+Iter 8 - loss: 0.9987
+Iter 9 - loss: 0.9982
+Iter 10 - loss: 0.9978
+Iter 1 - loss: 1.0020
+Iter 2 - loss: 1.0016
+Iter 3 - loss: 1.0012
+Iter 4 - loss: 1.0007
+Iter 5 - loss: 1.0003
+Iter 6 - loss: 0.9999
+Iter 7 - loss: 0.9994
+Iter 8 - loss: 0.9990
+Iter 9 - loss: 0.9986
+Iter 10 - loss: 0.9981
+Iter 1 - loss: 1.0018
+Iter 2 - loss: 1.0013
+Iter 3 - loss: 1.0009
+Iter 4 - loss: 1.0005
+Iter 5 - loss: 1.0000
+Iter 6 - loss: 0.9996
+Iter 7 - loss: 0.9992
+Iter 8 - loss: 0.9987
+Iter 9 - loss: 0.9983
+Iter 10 - loss: 0.9979
+Iter 1 - loss: 1.0017
+Iter 2 - loss: 1.0013
+Iter 3 - loss: 1.0008
+Iter 4 - loss: 1.0004
+Iter 5 - loss: 1.0000
+Iter 6 - loss: 0.9995
+Iter 7 - loss: 0.9991
+Iter 8 - loss: 0.9986
+Iter 9 - loss: 0.9982
+Iter 10 - loss: 0.9977
+Iter 1 - loss: 1.0018
+Iter 2 - loss: 1.0014
+Iter 3 - loss: 1.0010
+Iter 4 - loss: 1.0005
+Iter 5 - loss: 1.0001
+Iter 6 - loss: 0.9997
+Iter 7 - loss: 0.9992
+Iter 8 - loss: 0.9988
+Iter 9 - loss: 0.9984
+Iter 10 - loss: 0.9979
+Iter 1 - loss: 1.0017
+Iter 2 - loss: 1.0013
+Iter 3 - loss: 1.0008
+Iter 4 - loss: 1.0004
+Iter 5 - loss: 1.0000
+Iter 6 - loss: 0.9995
+Iter 7 - loss: 0.9991
+Iter 8 - loss: 0.9987
+Iter 9 - loss: 0.9982
+Iter 10 - loss: 0.9978
+Iter 1 - loss: 1.0020
+Iter 2 - loss: 1.0016
+Iter 3 - loss: 1.0012
+Iter 4 - loss: 1.0007
+Iter 5 - loss: 1.0003
+Iter 6 - loss: 0.9999
+Iter 7 - loss: 0.9994
+Iter 8 - loss: 0.9990
+Iter 9 - loss: 0.9986
+Iter 10 - loss: 0.9981
+Iter 1 - loss: 1.0017
+Iter 2 - loss: 1.0013
+Iter 3 - loss: 1.0008
+Iter 4 - loss: 1.0004
+Iter 5 - loss: 1.0000
+Iter 6 - loss: 0.9995
+Iter 7 - loss: 0.9991
+Iter 8 - loss: 0.9987
+Iter 9 - loss: 0.9983
+Iter 10 - loss: 0.9979
+Iter 1 - loss: 1.0017
+Iter 2 - loss: 1.0012
+Iter 3 - loss: 1.0008
+Iter 4 - loss: 1.0003
+Iter 5 - loss: 0.9999
+Iter 6 - loss: 0.9995
+Iter 7 - loss: 0.9990
+Iter 8 - loss: 0.9986
+Iter 9 - loss: 0.9982
+Iter 10 - loss: 0.9978
+Iter 1 - loss: 1.00182016-12-18 16:00:23,918: recpy.utils.tuning: INFO: Result: 0.5012
+2016-12-18 16:00:23,918: recpy.utils.tuning: INFO: Iteration 9/25: {'lrate': 0.0005623413251903491, 'num_factors': 20, 'iters': 10, 'reg': 1.0}
+2016-12-18 16:01:00,273: recpy.utils.tuning: INFO: Result: 0.5010
+2016-12-18 16:01:00,273: recpy.utils.tuning: INFO: Iteration 10/25: {'lrate': 0.0005623413251903491, 'num_factors': 20, 'iters': 10, 'reg': 10.0}
+2016-12-18 16:01:37,919: recpy.utils.tuning: INFO: Result: 0.5016
+2016-12-18 16:01:37,919: recpy.utils.tuning: INFO: Iteration 11/25: {'lrate': 0.0031622776601683794, 'num_factors': 20, 'iters': 10, 'reg': 0.001}
+2016-12-18 16:02:15,676: recpy.utils.tuning: INFO: Result: 0.5353
+2016-12-18 16:02:15,677: recpy.utils.tuning: INFO: Iteration 12/25: {'lrate': 0.0031622776601683794, 'num_factors': 20, 'iters': 10, 'reg': 0.01}
+2016-12-18 16:02:52,634: recpy.utils.tuning: INFO: Result: 0.5347
+2016-12-18 16:02:52,634: recpy.utils.tuning: INFO: Iteration 13/25: {'lrate': 0.0031622776601683794, 'num_factors': 20, 'iters': 10, 'reg': 0.10000000000000001}
+2016-12-18 16:03:30,609: recpy.utils.tuning: INFO: Result: 0.5286
+2016-12-18 16:03:30,609: recpy.utils.tuning: INFO: Iteration 14/25: {'lrate': 0.0031622776601683794, 'num_factors': 20, 'iters': 10, 'reg': 1.0}
+2016-12-18 16:04:08,028: recpy.utils.tuning: INFO: Result: 0.5037
+2016-12-18 16:04:08,029: recpy.utils.tuning: INFO: Iteration 15/25: {'lrate': 0.0031622776601683794, 'num_factors': 20, 'iters': 10, 'reg': 10.0}
+
+Iter 2 - loss: 1.0014
+Iter 3 - loss: 1.0009
+Iter 4 - loss: 1.0005
+Iter 5 - loss: 1.0000
+Iter 6 - loss: 0.9996
+Iter 7 - loss: 0.9992
+Iter 8 - loss: 0.9988
+Iter 9 - loss: 0.9983
+Iter 10 - loss: 0.9979
+Iter 1 - loss: 1.0017
+Iter 2 - loss: 1.0012
+Iter 3 - loss: 1.0008
+Iter 4 - loss: 1.0003
+Iter 5 - loss: 0.9999
+Iter 6 - loss: 0.9995
+Iter 7 - loss: 0.9991
+Iter 8 - loss: 0.9986
+Iter 9 - loss: 0.9982
+Iter 10 - loss: 0.9978
+Iter 1 - loss: 1.0020
+Iter 2 - loss: 1.0016
+Iter 3 - loss: 1.0011
+Iter 4 - loss: 1.0007
+Iter 5 - loss: 1.0002
+Iter 6 - loss: 0.9998
+Iter 7 - loss: 0.9994
+Iter 8 - loss: 0.9990
+Iter 9 - loss: 0.9985
+Iter 10 - loss: 0.9981
+Iter 1 - loss: 1.0016
+Iter 2 - loss: 1.0010
+Iter 3 - loss: 1.0004
+Iter 4 - loss: 1.0000
+Iter 5 - loss: 0.9996
+Iter 6 - loss: 0.9993
+Iter 7 - loss: 0.9990
+Iter 8 - loss: 0.9988
+Iter 9 - loss: 0.9986
+Iter 10 - loss: 0.9985
+Iter 1 - loss: 1.0016
+Iter 2 - loss: 1.0009
+Iter 3 - loss: 1.0004
+Iter 4 - loss: 0.9999
+Iter 5 - loss: 0.9995
+Iter 6 - loss: 0.9992
+Iter 7 - loss: 0.9989
+Iter 8 - loss: 0.9987
+Iter 9 - loss: 0.9985
+Iter 10 - loss: 0.9984
+Iter 1 - loss: 1.0017
+Iter 2 - loss: 1.0010
+Iter 3 - loss: 1.0005
+Iter 4 - loss: 1.0000
+Iter 5 - loss: 0.9996
+Iter 6 - loss: 0.9993
+Iter 7 - loss: 0.9990
+Iter 8 - loss: 0.9988
+Iter 9 - loss: 0.9986
+Iter 10 - loss: 0.9984
+Iter 1 - loss: 1.0016
+Iter 2 - loss: 1.0009
+Iter 3 - loss: 1.0004
+Iter 4 - loss: 1.0000
+Iter 5 - loss: 0.9996
+Iter 6 - loss: 0.9993
+Iter 7 - loss: 0.9990
+Iter 8 - loss: 0.9988
+Iter 9 - loss: 0.9986
+Iter 10 - loss: 0.9985
+Iter 1 - loss: 1.0019
+Iter 2 - loss: 1.0012
+Iter 3 - loss: 1.0007
+Iter 4 - loss: 1.0002
+Iter 5 - loss: 0.9998
+Iter 6 - loss: 0.9995
+Iter 7 - loss: 0.9992
+Iter 8 - loss: 0.9990
+Iter 9 - loss: 0.9988
+Iter 10 - loss: 0.9986
+Iter 1 - loss: 1.0009
+Iter 2 - loss: 1.0001
+Iter 3 - loss: 0.9999
+Iter 4 - loss: 0.9999
+Iter 5 - loss: 0.9998
+Iter 6 - loss: 0.9999
+Iter 7 - loss: 0.9999
+Iter 8 - loss: 0.9999
+Iter 9 - loss: 0.9999
+Iter 10 - loss: 0.9999
+Iter 1 - loss: 1.0007
+Iter 2 - loss: 0.9999
+Iter 3 - loss: 0.9998
+Iter 4 - loss: 0.9998
+Iter 5 - loss: 0.9998
+Iter 6 - loss: 0.9998
+Iter 7 - loss: 0.9998
+Iter 8 - loss: 0.9999
+Iter 9 - loss: 0.9999
+Iter 10 - loss: 0.9999
+Iter 1 - loss: 1.0009
+Iter 2 - loss: 1.0000
+Iter 3 - loss: 0.9998
+Iter 4 - loss: 0.9998
+Iter 5 - loss: 0.9998
+Iter 6 - loss: 0.9998
+Iter 7 - loss: 0.9998
+Iter 8 - loss: 0.9999
+Iter 9 - loss: 0.9999
+Iter 10 - loss: 0.9999
+Iter 1 - loss: 1.0009
+Iter 2 - loss: 1.0001
+Iter 3 - loss: 0.9999
+Iter 4 - loss: 0.9999
+Iter 5 - loss: 0.9999
+Iter 6 - loss: 0.9999
+Iter 7 - loss: 0.9999
+Iter 8 - loss: 0.9999
+Iter 9 - loss: 0.9999
+Iter 10 - loss: 0.9999
+Iter 1 - loss: 1.0012
+Iter 2 - loss: 1.0002
+Iter 3 - loss: 1.0000
+Iter 4 - loss: 0.9999
+Iter 5 - loss: 0.9999
+Iter 6 - loss: 0.9999
+Iter 7 - loss: 0.9999
+Iter 8 - loss: 0.9999
+Iter 9 - loss: 0.9999
+Iter 10 - loss: 0.9999
+Iter 1 - loss: 1.0018
+Iter 2 - loss: 0.9993
+Iter 3 - loss: 0.9968
+Iter 4 - loss: 0.9941
+Iter 5 - loss: 0.9911
+Iter 6 - loss: 0.9877
+Iter 7 - loss: 0.9834
+Iter 8 - loss: 0.9780
+Iter 9 - loss: 0.9708
+Iter 10 - loss: 0.9608
+Iter 1 - loss: 1.0017
+Iter 2 - loss: 0.9992
+Iter 3 - loss: 0.9967
+Iter 4 - loss: 0.9939
+Iter 5 - loss: 0.9909
+Iter 6 - loss: 0.9873
+Iter 7 - loss: 0.9830
+Iter 8 - loss: 0.9774
+Iter 9 - loss: 0.9700
+Iter 10 - loss: 0.9599
+Iter 1 - loss: 1.0019
+Iter 2 - loss: 0.9994
+Iter 3 - loss: 0.9969
+Iter 4 - loss: 0.9942
+Iter 5 - loss: 0.9912
+Iter 6 - loss: 0.9877
+Iter 7 - loss: 0.9834
+Iter 8 - loss: 0.9779
+Iter 9 - loss: 0.9706
+Iter 10 - loss: 0.9605
+Iter 1 - loss: 1.0017
+Iter 2 - loss: 0.9993
+Iter 3 - loss: 0.9967
+Iter 4 - loss: 0.9940
+Iter 5 - loss: 0.9909
+Iter 6 - loss: 0.9873
+Iter 7 - loss: 0.9828
+Iter 8 - loss: 0.9770
+Iter 9 - loss: 0.9692
+Iter 10 - loss: 0.9584
+Iter 1 - loss: 1.0021
+Iter 2 - loss: 0.9996
+Iter 3 - loss: 0.9971
+Iter 4 - loss: 0.9944
+Iter 5 - loss: 0.9913
+Iter 6 - loss: 0.9877
+Iter 7 - loss: 0.9833
+Iter 8 - loss: 0.9776
+Iter 9 - loss: 0.9699
+Iter 10 - loss: 0.9593
+Iter 1 - loss: 1.0018
+Iter 2 - loss: 0.9993
+Iter 3 - loss: 0.9968
+Iter 4 - loss: 0.9942
+Iter 5 - loss: 0.9913
+Iter 6 - loss: 0.9879
+Iter 7 - loss: 0.9838
+Iter 8 - loss: 0.9787
+Iter 9 - loss: 0.9718
+Iter 10 - loss: 0.9625
+Iter 1 - loss: 1.0017
+Iter 2 - loss: 0.9992
+Iter 3 - loss: 0.9967
+Iter 4 - loss: 0.9940
+Iter 5 - loss: 0.9910
+Iter 6 - loss: 0.9876
+Iter 7 - loss: 0.9834
+Iter 8 - loss: 0.9781
+Iter 9 - loss: 0.9711
+Iter 10 - loss: 0.9615
+Iter 1 - loss: 1.0019
+Iter 2 - loss: 0.9994
+Iter 3 - loss: 0.9969
+Iter 4 - loss: 0.9943
+Iter 5 - loss: 0.9913
+Iter 6 - loss: 0.9879
+Iter 7 - loss: 0.9838
+Iter 8 - loss: 0.9786
+Iter 9 - loss: 0.9716
+Iter 10 - loss: 0.9622
+Iter 1 - loss: 1.0017
+Iter 2 - loss: 0.9993
+Iter 3 - loss: 0.9968
+Iter 4 - loss: 0.9941
+Iter 5 - loss: 0.9910
+Iter 6 - loss: 0.9875
+Iter 7 - loss: 0.9832
+Iter 8 - loss: 0.9777
+Iter 9 - loss: 0.9703
+Iter 10 - loss: 0.9602
+Iter 1 - loss: 1.0021
+Iter 2 - loss: 0.9996
+Iter 3 - loss: 0.9971
+Iter 4 - loss: 0.9944
+Iter 5 - loss: 0.9914
+Iter 6 - loss: 0.9880
+Iter 7 - loss: 0.9837
+Iter 8 - loss: 0.9783
+Iter 9 - loss: 0.9710
+Iter 10 - loss: 0.9610
+Iter 1 - loss: 1.0017
+Iter 2 - loss: 0.9993
+Iter 3 - loss: 0.9970
+Iter 4 - loss: 0.9948
+Iter 5 - loss: 0.9925
+Iter 6 - loss: 0.9901
+Iter 7 - loss: 0.9874
+Iter 8 - loss: 0.9842
+Iter 9 - loss: 0.9803
+Iter 10 - loss: 0.9751
+Iter 1 - loss: 1.0016
+Iter 2 - loss: 0.9992
+Iter 3 - loss: 0.9968
+Iter 4 - loss: 0.9946
+Iter 5 - loss: 0.9923
+Iter 6 - loss: 0.9898
+Iter 7 - loss: 0.9871
+Iter 8 - loss: 0.9838
+Iter 9 - loss: 0.9798
+Iter 10 - loss: 0.9745
+Iter 1 - loss: 1.0018
+Iter 2 - loss: 0.9993
+Iter 3 - loss: 0.9970
+Iter 4 - loss: 0.9948
+Iter 5 - loss: 0.9925
+Iter 6 - loss: 0.9901
+Iter 7 - loss: 0.9874
+Iter 8 - loss: 0.9842
+Iter 9 - loss: 0.9802
+Iter 10 - loss: 0.9749
+Iter 1 - loss: 1.0017
+Iter 2 - loss: 0.9992
+Iter 3 - loss: 0.9969
+Iter 4 - loss: 0.9947
+Iter 5 - loss: 0.9924
+Iter 6 - loss: 0.9899
+Iter 7 - loss: 0.9870
+Iter 8 - loss: 0.9836
+Iter 9 - loss: 0.9794
+Iter 10 - loss: 0.9738
+Iter 1 - loss: 1.0020
+Iter 2 - loss: 0.9995
+Iter 3 - loss: 0.9972
+Iter 4 - loss: 0.9950
+Iter 5 - loss: 0.9927
+Iter 6 - loss: 0.9902
+Iter 7 - loss: 0.9874
+Iter 8 - loss: 0.9840
+Iter 9 - loss: 0.9798
+Iter 10 - loss: 0.9743
+Iter 1 - loss: 1.0012
+Iter 2 - loss: 0.9992
+Iter 3 - loss: 0.9984
+Iter 4 - loss: 0.9981
+Iter 5 - loss: 0.9980
+Iter 6 - loss: 0.9981
+Iter 7 - loss: 0.9981
+Iter 8 - loss: 0.9982
+Iter 9 - loss: 0.9983
+Iter 10 - loss: 0.9984
+Iter 1 - loss: 1.0011
+Iter 2 - loss: 0.9991
+Iter 3 - loss: 0.9983
+Iter 4 - loss: 0.9980
+Iter 5 - loss: 0.9979
+Iter 6 - loss: 0.9980
+Iter 7 - loss: 0.9980
+Iter 8 - loss: 0.9981
+Iter 9 - loss: 0.9982
+Iter 10 - loss: 0.9983
+Iter 1 - loss: 1.0012
+Iter 2 - loss: 0.9992
+Iter 3 - loss: 0.9984
+Iter 4 - loss: 0.9981
+Iter 5 - loss: 0.9980
+Iter 6 - loss: 0.9980
+Iter 7 - loss: 0.9981
+Iter 8 - loss: 0.9982
+Iter 9 - loss: 0.9983
+Iter 10 - loss: 0.9984
+Iter 1 - loss: 1.0011
+Iter 2 - loss: 0.9992
+Iter 3 - loss: 0.9984
+Iter 4 - loss: 0.9981
+Iter 5 - loss: 0.9981
+Iter 6 - loss: 0.9981
+Iter 7 - loss: 0.9981
+Iter 8 - loss: 0.9982
+Iter 9 - loss: 0.9983
+Iter 10 - loss: 0.9984
+Iter 1 - loss: 1.0015
+Iter 2 - loss: 0.9994
+Iter 3 - loss: 0.9985
+Iter 4 - loss: 0.9982
+Iter 5 - loss: 0.9981
+Iter 6 - loss: 0.9981
+Iter 7 - loss: 0.9982
+Iter 8 - loss: 0.9982
+Iter 9 - loss: 0.9983
+Iter 10 - loss: 0.9984
+Iter 1 - loss: 1.0002
+Iter 2 - loss: 0.9999
+Iter 3 - loss: 0.9999
+Iter 4 - loss: 1.0000
+Iter 5 - loss: 1.0000
+Iter 6 - loss: 1.0000
+Iter 7 - loss: 1.0000
+Iter 8 - loss: 1.0000
+Iter 9 - loss: 1.0000
+Iter 10 - loss: 1.0000
+Iter 1 - loss: 1.0000
+Iter 2 - loss: 0.9999
+Iter 3 - loss: 0.9999
+Iter 4 - loss: 1.0000
+Iter 5 - loss: 1.0000
+Iter 6 - loss: 1.0000
+Iter 7 - loss: 1.0000
+Iter 8 - loss: 1.0000
+Iter 9 - loss: 1.0000
+Iter 10 - loss: 1.0000
+Iter 1 - loss: 1.0001
+Iter 2 - loss: 0.9999
+Iter 3 - loss: 0.9999
+Iter 4 - loss: 1.0000
+Iter 5 - loss: 1.0000
+Iter 6 - loss: 1.0000
+Iter 7 - loss: 1.0000
+Iter 8 - loss: 1.0000
+Iter 9 - loss: 1.0000
+Iter 10 - loss: 1.0000
+Iter 1 - loss: 1.0003
+Iter 2 - loss: 0.9999
+Iter 3 - loss: 1.0000
+Iter 4 - loss: 1.0000
+Iter 5 - loss: 1.0000
+Iter 6 - loss: 1.0000
+Iter 7 - loss: 1.0000
+Iter 8 - loss: 1.0000
+Iter 9 - loss: 1.0000
+Iter 10 - loss: 1.0000
+Iter 1 - loss: 1.0004
+Iter 2 - loss: 0.99992016-12-18 16:04:44,861: recpy.utils.tuning: INFO: Result: 0.5001
+2016-12-18 16:04:44,861: recpy.utils.tuning: INFO: Iteration 16/25: {'lrate': 0.017782794100389229, 'num_factors': 20, 'iters': 10, 'reg': 0.001}
+2016-12-18 16:05:22,701: recpy.utils.tuning: INFO: Result: 0.8342
+2016-12-18 16:05:22,701: recpy.utils.tuning: INFO: Iteration 17/25: {'lrate': 0.017782794100389229, 'num_factors': 20, 'iters': 10, 'reg': 0.01}
+2016-12-18 16:05:59,914: recpy.utils.tuning: INFO: Result: 0.8364
+2016-12-18 16:05:59,915: recpy.utils.tuning: INFO: Iteration 18/25: {'lrate': 0.017782794100389229, 'num_factors': 20, 'iters': 10, 'reg': 0.10000000000000001}
+2016-12-18 16:06:37,457: recpy.utils.tuning: INFO: Result: 0.8467
+2016-12-18 16:06:37,457: recpy.utils.tuning: INFO: Iteration 19/25: {'lrate': 0.017782794100389229, 'num_factors': 20, 'iters': 10, 'reg': 1.0}
+2016-12-18 16:07:15,455: recpy.utils.tuning: INFO: Result: 0.5206
+2016-12-18 16:07:15,456: recpy.utils.tuning: INFO: Iteration 20/25: {'lrate': 0.017782794100389229, 'num_factors': 20, 'iters': 10, 'reg': 10.0}
+2016-12-18 16:07:52,656: recpy.utils.tuning: INFO: Result: 0.5025
+2016-12-18 16:07:52,656: recpy.utils.tuning: INFO: Iteration 21/25: {'lrate': 0.10000000000000001, 'num_factors': 20, 'iters': 10, 'reg': 0.001}
+2016-12-18 16:08:29,947: recpy.utils.tuning: INFO: Result: 0.8037
+2016-12-18 16:08:29,948: recpy.utils.tuning: INFO: Iteration 22/25: {'lrate': 0.10000000000000001, 'num_factors': 20, 'iters': 10, 'reg': 0.01}
+2016-12-18 16:09:07,368: recpy.utils.tuning: INFO: Result: 0.8084
+2016-12-18 16:09:07,368: recpy.utils.tuning: INFO: Iteration 23/25: {'lrate': 0.10000000000000001, 'num_factors': 20, 'iters': 10, 'reg': 0.10000000000000001}
+
+Iter 3 - loss: 1.0000
+Iter 4 - loss: 1.0000
+Iter 5 - loss: 1.0000
+Iter 6 - loss: 1.0000
+Iter 7 - loss: 1.0000
+Iter 8 - loss: 1.0000
+Iter 9 - loss: 1.0000
+Iter 10 - loss: 1.0000
+Iter 1 - loss: 1.0015
+Iter 2 - loss: 0.9746
+Iter 3 - loss: 0.8351
+Iter 4 - loss: 0.4842
+Iter 5 - loss: 0.2524
+Iter 6 - loss: 0.1509
+Iter 7 - loss: 0.0994
+Iter 8 - loss: 0.0703
+Iter 9 - loss: 0.0526
+Iter 10 - loss: 0.0409
+Iter 1 - loss: 1.0013
+Iter 2 - loss: 0.9731
+Iter 3 - loss: 0.8274
+Iter 4 - loss: 0.4762
+Iter 5 - loss: 0.2487
+Iter 6 - loss: 0.1486
+Iter 7 - loss: 0.0980
+Iter 8 - loss: 0.0695
+Iter 9 - loss: 0.0521
+Iter 10 - loss: 0.0406
+Iter 1 - loss: 1.0016
+Iter 2 - loss: 0.9741
+Iter 3 - loss: 0.8317
+Iter 4 - loss: 0.4802
+Iter 5 - loss: 0.2507
+Iter 6 - loss: 0.1498
+Iter 7 - loss: 0.0986
+Iter 8 - loss: 0.0698
+Iter 9 - loss: 0.0522
+Iter 10 - loss: 0.0407
+Iter 1 - loss: 1.0014
+Iter 2 - loss: 0.9727
+Iter 3 - loss: 0.8230
+Iter 4 - loss: 0.4701
+Iter 5 - loss: 0.2457
+Iter 6 - loss: 0.1471
+Iter 7 - loss: 0.0970
+Iter 8 - loss: 0.0687
+Iter 9 - loss: 0.0513
+Iter 10 - loss: 0.0400
+Iter 1 - loss: 1.0017
+Iter 2 - loss: 0.9729
+Iter 3 - loss: 0.8219
+Iter 4 - loss: 0.4680
+Iter 5 - loss: 0.2440
+Iter 6 - loss: 0.1461
+Iter 7 - loss: 0.0966
+Iter 8 - loss: 0.0687
+Iter 9 - loss: 0.0515
+Iter 10 - loss: 0.0402
+Iter 1 - loss: 1.0015
+Iter 2 - loss: 0.9756
+Iter 3 - loss: 0.8440
+Iter 4 - loss: 0.4986
+Iter 5 - loss: 0.2595
+Iter 6 - loss: 0.1547
+Iter 7 - loss: 0.1017
+Iter 8 - loss: 0.0718
+Iter 9 - loss: 0.0535
+Iter 10 - loss: 0.0416
+Iter 1 - loss: 1.0013
+Iter 2 - loss: 0.9742
+Iter 3 - loss: 0.8367
+Iter 4 - loss: 0.4904
+Iter 5 - loss: 0.2558
+Iter 6 - loss: 0.1524
+Iter 7 - loss: 0.1003
+Iter 8 - loss: 0.0710
+Iter 9 - loss: 0.0530
+Iter 10 - loss: 0.0413
+Iter 1 - loss: 1.0015
+Iter 2 - loss: 0.9752
+Iter 3 - loss: 0.8408
+Iter 4 - loss: 0.4945
+Iter 5 - loss: 0.2578
+Iter 6 - loss: 0.1536
+Iter 7 - loss: 0.1009
+Iter 8 - loss: 0.0713
+Iter 9 - loss: 0.0532
+Iter 10 - loss: 0.0414
+Iter 1 - loss: 1.0013
+Iter 2 - loss: 0.9738
+Iter 3 - loss: 0.8324
+Iter 4 - loss: 0.4841
+Iter 5 - loss: 0.2526
+Iter 6 - loss: 0.1508
+Iter 7 - loss: 0.0992
+Iter 8 - loss: 0.0701
+Iter 9 - loss: 0.0523
+Iter 10 - loss: 0.0406
+Iter 1 - loss: 1.0017
+Iter 2 - loss: 0.9740
+Iter 3 - loss: 0.8313
+Iter 4 - loss: 0.4819
+Iter 5 - loss: 0.2508
+Iter 6 - loss: 0.1497
+Iter 7 - loss: 0.0988
+Iter 8 - loss: 0.0701
+Iter 9 - loss: 0.0524
+Iter 10 - loss: 0.0408
+Iter 1 - loss: 1.0012
+Iter 2 - loss: 0.9835
+Iter 3 - loss: 0.9148
+Iter 4 - loss: 0.6625
+Iter 5 - loss: 0.3647
+Iter 6 - loss: 0.2152
+Iter 7 - loss: 0.1428
+Iter 8 - loss: 0.1027
+Iter 9 - loss: 0.0784
+Iter 10 - loss: 0.0628
+Iter 1 - loss: 1.0010
+Iter 2 - loss: 0.9826
+Iter 3 - loss: 0.9105
+Iter 4 - loss: 0.6536
+Iter 5 - loss: 0.3598
+Iter 6 - loss: 0.2127
+Iter 7 - loss: 0.1413
+Iter 8 - loss: 0.1018
+Iter 9 - loss: 0.0780
+Iter 10 - loss: 0.0626
+Iter 1 - loss: 1.0012
+Iter 2 - loss: 0.9833
+Iter 3 - loss: 0.9131
+Iter 4 - loss: 0.6586
+Iter 5 - loss: 0.3623
+Iter 6 - loss: 0.2141
+Iter 7 - loss: 0.1421
+Iter 8 - loss: 0.1022
+Iter 9 - loss: 0.0782
+Iter 10 - loss: 0.0627
+Iter 1 - loss: 1.0011
+Iter 2 - loss: 0.9825
+Iter 3 - loss: 0.9078
+Iter 4 - loss: 0.6461
+Iter 5 - loss: 0.3544
+Iter 6 - loss: 0.2100
+Iter 7 - loss: 0.1397
+Iter 8 - loss: 0.1006
+Iter 9 - loss: 0.0770
+Iter 10 - loss: 0.0617
+Iter 1 - loss: 1.0014
+Iter 2 - loss: 0.9826
+Iter 3 - loss: 0.9071
+Iter 4 - loss: 0.6439
+Iter 5 - loss: 0.3523
+Iter 6 - loss: 0.2086
+Iter 7 - loss: 0.1389
+Iter 8 - loss: 0.1003
+Iter 9 - loss: 0.0770
+Iter 10 - loss: 0.0618
+Iter 1 - loss: 1.0004
+Iter 2 - loss: 0.9988
+Iter 3 - loss: 0.9991
+Iter 4 - loss: 0.9993
+Iter 5 - loss: 0.9994
+Iter 6 - loss: 0.9995
+Iter 7 - loss: 0.9996
+Iter 8 - loss: 0.9997
+Iter 9 - loss: 0.9997
+Iter 10 - loss: 0.9998
+Iter 1 - loss: 1.0002
+Iter 2 - loss: 0.9987
+Iter 3 - loss: 0.9990
+Iter 4 - loss: 0.9993
+Iter 5 - loss: 0.9994
+Iter 6 - loss: 0.9995
+Iter 7 - loss: 0.9996
+Iter 8 - loss: 0.9997
+Iter 9 - loss: 0.9997
+Iter 10 - loss: 0.9998
+Iter 1 - loss: 1.0003
+Iter 2 - loss: 0.9988
+Iter 3 - loss: 0.9991
+Iter 4 - loss: 0.9993
+Iter 5 - loss: 0.9994
+Iter 6 - loss: 0.9995
+Iter 7 - loss: 0.9996
+Iter 8 - loss: 0.9997
+Iter 9 - loss: 0.9997
+Iter 10 - loss: 0.9998
+Iter 1 - loss: 1.0005
+Iter 2 - loss: 0.9989
+Iter 3 - loss: 0.9991
+Iter 4 - loss: 0.9993
+Iter 5 - loss: 0.9994
+Iter 6 - loss: 0.9996
+Iter 7 - loss: 0.9996
+Iter 8 - loss: 0.9997
+Iter 9 - loss: 0.9997
+Iter 10 - loss: 0.9998
+Iter 1 - loss: 1.0007
+Iter 2 - loss: 0.9989
+Iter 3 - loss: 0.9991
+Iter 4 - loss: 0.9993
+Iter 5 - loss: 0.9994
+Iter 6 - loss: 0.9996
+Iter 7 - loss: 0.9996
+Iter 8 - loss: 0.9997
+Iter 9 - loss: 0.9997
+Iter 10 - loss: 0.9998
+Iter 1 - loss: 1.0000
+Iter 2 - loss: 1.0000
+Iter 3 - loss: 1.0000
+Iter 4 - loss: 1.0000
+Iter 5 - loss: 1.0000
+Iter 6 - loss: 1.0000
+Iter 7 - loss: 1.0000
+Iter 8 - loss: 1.0000
+Iter 9 - loss: 1.0000
+Iter 10 - loss: 1.0000
+Iter 1 - loss: 0.9999
+Iter 2 - loss: 1.0000
+Iter 3 - loss: 1.0000
+Iter 4 - loss: 1.0000
+Iter 5 - loss: 1.0000
+Iter 6 - loss: 1.0000
+Iter 7 - loss: 1.0000
+Iter 8 - loss: 1.0000
+Iter 9 - loss: 1.0000
+Iter 10 - loss: 1.0000
+Iter 1 - loss: 1.0000
+Iter 2 - loss: 1.0000
+Iter 3 - loss: 1.0000
+Iter 4 - loss: 1.0000
+Iter 5 - loss: 1.0000
+Iter 6 - loss: 1.0000
+Iter 7 - loss: 1.0000
+Iter 8 - loss: 1.0000
+Iter 9 - loss: 1.0000
+Iter 10 - loss: 1.0000
+Iter 1 - loss: 1.0001
+Iter 2 - loss: 1.0000
+Iter 3 - loss: 1.0000
+Iter 4 - loss: 1.0000
+Iter 5 - loss: 1.0000
+Iter 6 - loss: 1.0000
+Iter 7 - loss: 1.0000
+Iter 8 - loss: 1.0000
+Iter 9 - loss: 1.0000
+Iter 10 - loss: 1.0000
+Iter 1 - loss: 1.0001
+Iter 2 - loss: 1.0000
+Iter 3 - loss: 1.0000
+Iter 4 - loss: 1.0000
+Iter 5 - loss: 1.0000
+Iter 6 - loss: 1.0000
+Iter 7 - loss: 1.0000
+Iter 8 - loss: 1.0000
+Iter 9 - loss: 1.0000
+Iter 10 - loss: 1.0000
+Iter 1 - loss: 0.6721
+Iter 2 - loss: 0.0672
+Iter 3 - loss: 0.0194
+Iter 4 - loss: 0.0094
+Iter 5 - loss: 0.0055
+Iter 6 - loss: 0.0036
+Iter 7 - loss: 0.0025
+Iter 8 - loss: 0.0018
+Iter 9 - loss: 0.0014
+Iter 10 - loss: 0.0011
+Iter 1 - loss: 0.6591
+Iter 2 - loss: 0.0649
+Iter 3 - loss: 0.0193
+Iter 4 - loss: 0.0095
+Iter 5 - loss: 0.0056
+Iter 6 - loss: 0.0036
+Iter 7 - loss: 0.0025
+Iter 8 - loss: 0.0019
+Iter 9 - loss: 0.0014
+Iter 10 - loss: 0.0011
+Iter 1 - loss: 0.6674
+Iter 2 - loss: 0.0662
+Iter 3 - loss: 0.0194
+Iter 4 - loss: 0.0094
+Iter 5 - loss: 0.0055
+Iter 6 - loss: 0.0036
+Iter 7 - loss: 0.0025
+Iter 8 - loss: 0.0018
+Iter 9 - loss: 0.0014
+Iter 10 - loss: 0.0011
+Iter 1 - loss: 0.6616
+Iter 2 - loss: 0.0647
+Iter 3 - loss: 0.0189
+Iter 4 - loss: 0.0093
+Iter 5 - loss: 0.0055
+Iter 6 - loss: 0.0036
+Iter 7 - loss: 0.0025
+Iter 8 - loss: 0.0018
+Iter 9 - loss: 0.0014
+Iter 10 - loss: 0.0011
+Iter 1 - loss: 0.6507
+Iter 2 - loss: 0.0632
+Iter 3 - loss: 0.0188
+Iter 4 - loss: 0.0092
+Iter 5 - loss: 0.0054
+Iter 6 - loss: 0.0035
+Iter 7 - loss: 0.0025
+Iter 8 - loss: 0.0018
+Iter 9 - loss: 0.0014
+Iter 10 - loss: 0.0011
+Iter 1 - loss: 0.6777
+Iter 2 - loss: 0.0684
+Iter 3 - loss: 0.0195
+Iter 4 - loss: 0.0093
+Iter 5 - loss: 0.0054
+Iter 6 - loss: 0.0035
+Iter 7 - loss: 0.0024
+Iter 8 - loss: 0.0018
+Iter 9 - loss: 0.0013
+Iter 10 - loss: 0.0011
+Iter 1 - loss: 0.6646
+Iter 2 - loss: 0.0661
+Iter 3 - loss: 0.0194
+Iter 4 - loss: 0.0094
+Iter 5 - loss: 0.0055
+Iter 6 - loss: 0.0035
+Iter 7 - loss: 0.0025
+Iter 8 - loss: 0.0018
+Iter 9 - loss: 0.0014
+Iter 10 - loss: 0.0011
+Iter 1 - loss: 0.6729
+Iter 2 - loss: 0.0674
+Iter 3 - loss: 0.0195
+Iter 4 - loss: 0.0093
+Iter 5 - loss: 0.0054
+Iter 6 - loss: 0.0035
+Iter 7 - loss: 0.0024
+Iter 8 - loss: 0.0017
+Iter 9 - loss: 0.0013
+Iter 10 - loss: 0.0010
+Iter 1 - loss: 0.6670
+Iter 2 - loss: 0.0659
+Iter 3 - loss: 0.0190
+Iter 4 - loss: 0.0092
+Iter 5 - loss: 0.0054
+Iter 6 - loss: 0.0035
+Iter 7 - loss: 0.0024
+Iter 8 - loss: 0.0017
+Iter 9 - loss: 0.0013
+Iter 10 - loss: 0.0010
+Iter 1 - loss: 0.6563
+Iter 2 - loss: 0.0643
+Iter 3 - loss: 0.0189
+Iter 4 - loss: 0.0091
+Iter 5 - loss: 0.0053
+Iter 6 - loss: 0.0034
+Iter 7 - loss: 0.0024
+Iter 8 - loss: 0.0017
+Iter 9 - loss: 0.0013
+Iter 10 - loss: 0.0010
+Iter 1 - loss: 0.7434
+Iter 2 - loss: 0.0979
+Iter 3 - loss: 0.0343
+Iter 4 - loss: 0.0218
+Iter 5 - loss: 0.0171
+Iter 6 - loss: 0.0147
+Iter 7 - loss: 0.0134
+Iter 8 - loss: 0.0125
+Iter 9 - loss: 0.0119
+Iter 10 - loss: 0.0115
+Iter 1 - loss: 0.7303
+Iter 2 - loss: 0.0948
+Iter 3 - loss: 0.03422016-12-18 16:09:44,789: recpy.utils.tuning: INFO: Result: 0.8349
+2016-12-18 16:09:44,789: recpy.utils.tuning: INFO: Iteration 24/25: {'lrate': 0.10000000000000001, 'num_factors': 20, 'iters': 10, 'reg': 1.0}
+2016-12-18 16:10:22,587: recpy.utils.tuning: INFO: Result: 0.4958
+2016-12-18 16:10:22,587: recpy.utils.tuning: INFO: Iteration 25/25: {'lrate': 0.10000000000000001, 'num_factors': 20, 'iters': 10, 'reg': 10.0}
+2016-12-18 16:10:59,159: recpy.utils.tuning: INFO: Result: 0.6635
+2016-12-18 16:10:59,160: __main__: INFO: Best configuration:
+2016-12-18 16:10:59,160: __main__: INFO: {'lrate': 0.017782794100389229, 'num_factors': 20, 'iters': 10, 'reg': 0.10000000000000001}
+2016-12-18 16:10:59,160: __main__: INFO: CV score: 0.8467
+2016-12-18 16:10:59,160: __main__: INFO: Recommender: FunkSVD(num_factors=20, lrate=0.01778279410038923, reg=0.1, iters=10, init_mean=0.0, init_std=0.1, lrate_decay=1.0, rnd_seed=42)
+2016-12-18 16:10:59,161: __main__: INFO: Training started
+2016-12-18 16:11:07,596: __main__: INFO: Training completed in 0:00:08.435229
+2016-12-18 16:11:08,551: __main__: INFO: Metrics: (0.84938773755584052, 0.03512035010940931, 0.050730226128686572, 0.017464922349521697, 0.075803636553089596, 0.03767312242276559)
+2016-12-18 16:11:08,551: __main__: INFO: Tuning IALS_numpy with GridSearchCV
+2016-12-18 16:11:08,551: recpy.utils.tuning: INFO: Size of the parameter space: 20 (100 cv trials)
+2016-12-18 16:11:08,655: recpy.utils.tuning: INFO: Iteration 1/20: {'alpha': 20, 'num_factors': 20, 'iters': 10, 'reg': 0.001}
+2016-12-18 16:11:58,549: recpy.utils.tuning: INFO: Result: 0.8957
+2016-12-18 16:11:58,549: recpy.utils.tuning: INFO: Iteration 2/20: {'alpha': 20, 'num_factors': 20, 'iters': 10, 'reg': 0.01}
+2016-12-18 16:12:47,588: recpy.utils.tuning: INFO: Result: 0.8957
+2016-12-18 16:12:47,588: recpy.utils.tuning: INFO: Iteration 3/20: {'alpha': 20, 'num_factors': 20, 'iters': 10, 'reg': 0.10000000000000001}
+2016-12-18 16:13:36,800: recpy.utils.tuning: INFO: Result: 0.8958
+2016-12-18 16:13:36,800: recpy.utils.tuning: INFO: Iteration 4/20: {'alpha': 20, 'num_factors': 20, 'iters': 10, 'reg': 1.0}
+2016-12-18 16:14:25,626: recpy.utils.tuning: INFO: Result: 0.8964
+2016-12-18 16:14:25,627: recpy.utils.tuning: INFO: Iteration 5/20: {'alpha': 20, 'num_factors': 20, 'iters': 10, 'reg': 10.0}
+2016-12-18 16:15:15,019: recpy.utils.tuning: INFO: Result: 0.9026
+2016-12-18 16:15:15,019: recpy.utils.tuning: INFO: Iteration 6/20: {'alpha': 40, 'num_factors': 20, 'iters': 10, 'reg': 0.001}
+2016-12-18 16:16:04,241: recpy.utils.tuning: INFO: Result: 0.8929
+2016-12-18 16:16:04,242: recpy.utils.tuning: INFO: Iteration 7/20: {'alpha': 40, 'num_factors': 20, 'iters': 10, 'reg': 0.01}
+2016-12-18 16:16:53,230: recpy.utils.tuning: INFO: Result: 0.8929
+2016-12-18 16:16:53,230: recpy.utils.tuning: INFO: Iteration 8/20: {'alpha': 40, 'num_factors': 20, 'iters': 10, 'reg': 0.10000000000000001}
+2016-12-18 16:17:42,359: recpy.utils.tuning: INFO: Result: 0.8930
+2016-12-18 16:17:42,359: recpy.utils.tuning: INFO: Iteration 9/20: {'alpha': 40, 'num_factors': 20, 'iters': 10, 'reg': 1.0}
+2016-12-18 16:18:31,270: recpy.utils.tuning: INFO: Result: 0.8937
+2016-12-18 16:18:31,270: recpy.utils.tuning: INFO: Iteration 10/20: {'alpha': 40, 'num_factors': 20, 'iters': 10, 'reg': 10.0}
+2016-12-18 16:19:20,470: recpy.utils.tuning: INFO: Result: 0.8987
+2016-12-18 16:19:20,470: recpy.utils.tuning: INFO: Iteration 11/20: {'alpha': 60, 'num_factors': 20, 'iters': 10, 'reg': 0.001}
+2016-12-18 16:20:09,798: recpy.utils.tuning: INFO: Result: 0.8910
+2016-12-18 16:20:09,798: recpy.utils.tuning: INFO: Iteration 12/20: {'alpha': 60, 'num_factors': 20, 'iters': 10, 'reg': 0.01}
+2016-12-18 16:20:58,974: recpy.utils.tuning: INFO: Result: 0.8910
+2016-12-18 16:20:58,974: recpy.utils.tuning: INFO: Iteration 13/20: {'alpha': 60, 'num_factors': 20, 'iters': 10, 'reg': 0.10000000000000001}
+2016-12-18 16:21:48,341: recpy.utils.tuning: INFO: Result: 0.8911
+2016-12-18 16:21:48,342: recpy.utils.tuning: INFO: Iteration 14/20: {'alpha': 60, 'num_factors': 20, 'iters': 10, 'reg': 1.0}
+2016-12-18 16:22:37,215: recpy.utils.tuning: INFO: Result: 0.8918
+2016-12-18 16:22:37,215: recpy.utils.tuning: INFO: Iteration 15/20: {'alpha': 60, 'num_factors': 20, 'iters': 10, 'reg': 10.0}
+2016-12-18 16:23:26,344: recpy.utils.tuning: INFO: Result: 0.8961
+2016-12-18 16:23:26,344: recpy.utils.tuning: INFO: Iteration 16/20: {'alpha': 80, 'num_factors': 20, 'iters': 10, 'reg': 0.001}
+2016-12-18 16:24:15,223: recpy.utils.tuning: INFO: Result: 0.8896
+2016-12-18 16:24:15,223: recpy.utils.tuning: INFO: Iteration 17/20: {'alpha': 80, 'num_factors': 20, 'iters': 10, 'reg': 0.01}
+2016-12-18 16:25:04,693: recpy.utils.tuning: INFO: Result: 0.8896
+2016-12-18 16:25:04,693: recpy.utils.tuning: INFO: Iteration 18/20: {'alpha': 80, 'num_factors': 20, 'iters': 10, 'reg': 0.10000000000000001}
+2016-12-18 16:25:54,560: recpy.utils.tuning: INFO: Result: 0.8897
+2016-12-18 16:25:54,560: recpy.utils.tuning: INFO: Iteration 19/20: {'alpha': 80, 'num_factors': 20, 'iters': 10, 'reg': 1.0}
+2016-12-18 16:26:43,412: recpy.utils.tuning: INFO: Result: 0.8905
+2016-12-18 16:26:43,412: recpy.utils.tuning: INFO: Iteration 20/20: {'alpha': 80, 'num_factors': 20, 'iters': 10, 'reg': 10.0}
+2016-12-18 16:27:32,630: recpy.utils.tuning: INFO: Result: 0.8942
+2016-12-18 16:27:32,631: __main__: INFO: Best configuration:
+2016-12-18 16:27:32,631: __main__: INFO: {'alpha': 20, 'num_factors': 20, 'iters': 10, 'reg': 10.0}
+2016-12-18 16:27:32,631: __main__: INFO: CV score: 0.9026
+2016-12-18 16:27:32,631: __main__: INFO: Recommender: WRMF-iALS(num_factors=20,  reg=10.0, iters=10, alpha=20, init_mean=0.0, init_std=0.1, rnd_seed=42)
+2016-12-18 16:27:32,631: __main__: INFO: Training started
+2016-12-18 16:27:43,876: __main__: INFO: Training completed in 0:00:11.244803
+2016-12-18 16:27:44,853: __main__: INFO: Metrics: (0.91789929436745277, 0.17866520787746087, 0.2115067246932287, 0.12588621823232912, 0.38567998680143029, 0.19534884836255723)
+2016-12-18 16:27:44,853: __main__: INFO: Tuning BPRMF with GridSearchCV
+2016-12-18 16:27:44,853: recpy.utils.tuning: INFO: Size of the parameter space: 25 (125 cv trials)
+2016-12-18 16:27:44,956: recpy.utils.tuning: INFO: Iteration 1/25: {'sample_with_replacement': True, 'lrate': 0.0001, 'num_factors': 20, 'iters': 10, 'user_reg': 0.001}
+
+Iter 4 - loss: 0.0219
+Iter 5 - loss: 0.0172
+Iter 6 - loss: 0.0148
+Iter 7 - loss: 0.0135
+Iter 8 - loss: 0.0126
+Iter 9 - loss: 0.0120
+Iter 10 - loss: 0.0116
+Iter 1 - loss: 0.7384
+Iter 2 - loss: 0.0965
+Iter 3 - loss: 0.0343
+Iter 4 - loss: 0.0219
+Iter 5 - loss: 0.0172
+Iter 6 - loss: 0.0148
+Iter 7 - loss: 0.0134
+Iter 8 - loss: 0.0125
+Iter 9 - loss: 0.0119
+Iter 10 - loss: 0.0115
+Iter 1 - loss: 0.7311
+Iter 2 - loss: 0.0944
+Iter 3 - loss: 0.0336
+Iter 4 - loss: 0.0216
+Iter 5 - loss: 0.0170
+Iter 6 - loss: 0.0147
+Iter 7 - loss: 0.0133
+Iter 8 - loss: 0.0125
+Iter 9 - loss: 0.0119
+Iter 10 - loss: 0.0115
+Iter 1 - loss: 0.7217
+Iter 2 - loss: 0.0923
+Iter 3 - loss: 0.0335
+Iter 4 - loss: 0.0215
+Iter 5 - loss: 0.0169
+Iter 6 - loss: 0.0147
+Iter 7 - loss: 0.0133
+Iter 8 - loss: 0.0125
+Iter 9 - loss: 0.0119
+Iter 10 - loss: 0.0115
+Iter 1 - loss: 0.9999
+Iter 2 - loss: 0.9998
+Iter 3 - loss: 0.9999
+Iter 4 - loss: 0.9999
+Iter 5 - loss: 0.9999
+Iter 6 - loss: 1.0000
+Iter 7 - loss: 1.0000
+Iter 8 - loss: 1.0000
+Iter 9 - loss: 1.0000
+Iter 10 - loss: 1.0000
+Iter 1 - loss: 0.9999
+Iter 2 - loss: 0.9998
+Iter 3 - loss: 0.9999
+Iter 4 - loss: 0.9999
+Iter 5 - loss: 1.0000
+Iter 6 - loss: 1.0000
+Iter 7 - loss: 1.0000
+Iter 8 - loss: 1.0000
+Iter 9 - loss: 1.0000
+Iter 10 - loss: 1.0000
+Iter 1 - loss: 1.0000
+Iter 2 - loss: 0.9998
+Iter 3 - loss: 0.9999
+Iter 4 - loss: 0.9999
+Iter 5 - loss: 1.0000
+Iter 6 - loss: 1.0000
+Iter 7 - loss: 1.0000
+Iter 8 - loss: 1.0000
+Iter 9 - loss: 1.0000
+Iter 10 - loss: 1.0000
+Iter 1 - loss: 1.0001
+Iter 2 - loss: 0.9998
+Iter 3 - loss: 0.9999
+Iter 4 - loss: 0.9999
+Iter 5 - loss: 1.0000
+Iter 6 - loss: 1.0000
+Iter 7 - loss: 1.0000
+Iter 8 - loss: 1.0000
+Iter 9 - loss: 1.0000
+Iter 10 - loss: 1.0000
+Iter 1 - loss: 1.0001
+Iter 2 - loss: 0.9998
+Iter 3 - loss: 0.9999
+Iter 4 - loss: 0.9999
+Iter 5 - loss: 1.0000
+Iter 6 - loss: 1.0000
+Iter 7 - loss: 1.0000
+Iter 8 - loss: 1.0000
+Iter 9 - loss: 1.0000
+Iter 10 - loss: 1.0000
+Iter 1 - loss: 1.0001
+Iter 2 - loss: 1.0000
+Iter 3 - loss: 1.0000
+Iter 4 - loss: 1.0000
+Iter 5 - loss: 1.0000
+Iter 6 - loss: 1.0000
+Iter 7 - loss: 1.0000
+Iter 8 - loss: 1.0000
+Iter 9 - loss: 1.0000
+Iter 10 - loss: 1.0000
+Iter 1 - loss: 1.0000
+Iter 2 - loss: 1.0000
+Iter 3 - loss: 1.0000
+Iter 4 - loss: 1.0000
+Iter 5 - loss: 1.0000
+Iter 6 - loss: 1.0000
+Iter 7 - loss: 1.0000
+Iter 8 - loss: 1.0000
+Iter 9 - loss: 1.0000
+Iter 10 - loss: 1.0000
+Iter 1 - loss: 1.0000
+Iter 2 - loss: 1.0000
+Iter 3 - loss: 1.0000
+Iter 4 - loss: 1.0000
+Iter 5 - loss: 1.0000
+Iter 6 - loss: 1.0000
+Iter 7 - loss: 1.0000
+Iter 8 - loss: 1.0000
+Iter 9 - loss: 1.0000
+Iter 10 - loss: 1.0000
+Iter 1 - loss: 1.0000
+Iter 2 - loss: 1.0000
+Iter 3 - loss: 1.0000
+Iter 4 - loss: 1.0000
+Iter 5 - loss: 1.0000
+Iter 6 - loss: 1.0000
+Iter 7 - loss: 1.0000
+Iter 8 - loss: 1.0000
+Iter 9 - loss: 1.0000
+Iter 10 - loss: 1.0000
+Iter 1 - loss: 1.0000
+Iter 2 - loss: 1.0000
+Iter 3 - loss: 1.0000
+Iter 4 - loss: 1.0000
+Iter 5 - loss: 1.0000
+Iter 6 - loss: 1.0000
+Iter 7 - loss: 1.0000
+Iter 8 - loss: 1.0000
+Iter 9 - loss: 1.0000
+Iter 10 - loss: 1.0000
+Iter 1 - loss: 1.0006
+Iter 2 - loss: 0.9695
+Iter 3 - loss: 0.7727
+Iter 4 - loss: 0.3942
+Iter 5 - loss: 0.2040
+Iter 6 - loss: 0.1257
+Iter 7 - loss: 0.0869
+Iter 8 - loss: 0.0651
+Iter 9 - loss: 0.0516
+Iter 10 - loss: 0.0427
+Sampling... 28.22% complete
+Sampling... 56.43% complete
+Sampling... 84.65% complete
+Iter 1 - loss: -0.6933
+Iter 2 - loss: -0.6933
+Iter 3 - loss: -0.6933
+Iter 4 - loss: -0.6932
+Iter 5 - loss: -0.6932
+Iter 6 - loss: -0.6931
+Iter 7 - loss: -0.6931
+Iter 8 - loss: -0.6930
+Iter 9 - loss: -0.6930
+Iter 10 - loss: -0.6929
+Sampling... 28.22% complete
+Sampling... 56.43% complete
+Sampling... 84.65% complete
+Iter 1 - loss: -0.6932
+Iter 2 - loss: -0.6931
+Iter 3 - loss: -0.6931
+Iter 4 - loss: -0.6930
+Iter 5 - loss: -0.6930
+Iter 6 - loss: -0.6929
+Iter 7 - loss: -0.6929
+Iter 8 - loss: -0.6928
+Iter 9 - loss: -0.6928
+Iter 10 - loss: -0.6928
+Sampling... 28.22% complete
+Sampling... 56.43% complete
+Sampling... 84.65% complete
+Iter 1 - loss: -0.6935
+Iter 2 - loss: -0.6935
+Iter 3 - loss: -0.6934
+Iter 4 - loss: -0.6934
+Iter 5 - loss: -0.6934
+Iter 6 - loss: -0.6933
+Iter 7 - loss: -0.6933
+Iter 8 - loss: -0.6932
+Iter 9 - loss: -0.6932
+Iter 10 - loss: -0.6931
+Traceback (most recent call last):
+  File "grid_search.py", line 235, in <module>
+    item_key='item_idx')
+  File "/Users/massimo/anaconda3/envs/recpy-dev/lib/python3.5/site-packages/RecPy-0.2.0-py3.5-macosx-10.6-x86_64.egg/recpy/utils/tuning.py", line 51, in grid_search_cv
+    recommender.fit(train)
+  File "/Users/massimo/anaconda3/envs/recpy-dev/lib/python3.5/site-packages/RecPy-0.2.0-py3.5-macosx-10.6-x86_64.egg/recpy/recommenders/mf.py", line 339, in fit
+    self.lrate_decay, self.rnd_seed)
+  File "recpy/_cython/_mf.pyx", line 197, in recpy._cython._mf.BPRMF_sgd (recpy/_cython/_mf.c:8015)
+  File "recpy/_cython/_mf.pyx", line 265, in recpy._cython._mf.user_uniform_item_uniform_sampling (recpy/_cython/_mf.c:9451)
+  File "mtrand.pyx", line 1397, in mtrand.RandomState.choice (numpy/random/mtrand/mtrand.c:15477)
+ValueError: a must be non-empty

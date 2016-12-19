@@ -172,3 +172,77 @@ def AsySVD_compute_user_factors(user_profile, Y):
         Y_acc /= np.sqrt(n_rated)
     return Y_acc
 
+
+from libc.math cimport exp, log
+
+@cython.boundscheck(False)
+def BPRMF_sgd(R, num_factors=50, lrate=0.01, user_reg=0.015, pos_reg=0.015, neg_reg=0.0015, iters=10, 
+    sample_with_replacement=True, init_mean=0.0, init_std=0.1, lrate_decay=1.0, rnd_seed=42):
+    if not isinstance(R, sps.csr_matrix):
+        raise ValueError('R must be an instance of scipy.sparse.csr_matrix')
+
+    # use Cython MemoryViews for fast access to the sparse structure of R
+    cdef int [:] col_indices = R.indices, indptr = R.indptr
+    cdef float [:] data = R.data
+    cdef int M = R.shape[0], N = R.shape[1]
+    cdef int nnz = len(R.data)
+
+    # set the seed of the random number generator
+    np.random.seed(rnd_seed)
+    # randomly initialize the user and item latent factors
+    cdef np.ndarray[np.float32_t, ndim=2] X = np.random.normal(init_mean, init_std, (M, num_factors)).astype(np.float32)
+    cdef np.ndarray[np.float32_t, ndim=2] Y = np.random.normal(init_mean, init_std, (N, num_factors)).astype(np.float32)
+    
+    # sample the training triples
+    cdef np.ndarray[np.int64_t, ndim=2] sample = user_uniform_item_uniform_sampling(R, nnz, replace=sample_with_replacement, seed=rnd_seed)
+    
+    # here we define some auxiliary variables
+    cdef int i, j, k, idx, it, n
+    cdef float rij, rik, loss, deriv
+    cdef np.ndarray[np.float32_t, ndim=1] X_i = np.zeros(num_factors, dtype=np.float32)
+    cdef np.ndarray[np.float32_t, ndim=1] Y_j = np.zeros(num_factors, dtype=np.float32)
+    cdef np.ndarray[np.float32_t, ndim=1] Y_k = np.zeros(num_factors, dtype=np.float32)
+
+    #
+    # Stochastic Gradient Descent starts here
+    #
+    for it in range(iters):     # for each iteration
+        loss = 0.0
+        for n in range(nnz):   
+
+            #
+            # TODO: compute the BPR loss and update the latent factors X and Y
+            #
+            
+        loss /= nnz
+        print('Iter {} - loss: {:.4f}'.format(it+1, loss))
+        # update the learning rate
+        lrate *= lrate_decay
+
+    return X, Y
+
+def user_uniform_item_uniform_sampling(R, size, replace=True, seed=1234):
+    # use Cython MemoryViews for fast access to the sparse structure of R
+    cdef int [:] col_indices = R.indices, indptr = R.indptr
+    cdef int M = R.shape[0], N = R.shape[1]
+    cdef int nnz = len(R.data)
+
+    cdef np.ndarray[np.int64_t, ndim=2] sample = np.zeros((size, 3), dtype=np.int64)
+    cdef np.ndarray[np.int8_t, ndim=1] is_sampled # boolean arrays are not yet supported by Cython
+    if not replace:
+        is_sampled = np.zeros(nnz, dtype=np.int8)
+
+    # set the seed of the random number generator
+    np.random.seed(seed)
+
+    cdef int i=0, start, end, iid, jid, kid, idx
+    cdef np.ndarray[np.int64_t, ndim=1] aux, neg_candidates
+    cdef int [:] pos_candidates
+    #
+    # TODO: Sample (user, positive item, negative item triples) using the following procedure:
+    # 1) Sample a user uniformly at random
+    # 2) Sample a positive item of such user u.a.r. (With or without replacement)
+    # 3) Sample a negative item from the unobserved ratings of that user u.a.r.
+    # 4) Add the sampled triple to the sample vector
+    #
+    return sample

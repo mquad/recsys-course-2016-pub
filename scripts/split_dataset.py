@@ -7,7 +7,7 @@ from recpy.utils.split import holdout
 logger = logging.getLogger(__name__)
 logging.basicConfig(
     level=logging.INFO,
-    format="%(asctime)s: %(name)s: %(l-evelname)s: %(message)s")
+    format="%(asctime)s: %(name)s: %(levelname)s: %(message)s")
 
 # let's use an ArgumentParser to read input arguments
 parser = argparse.ArgumentParser()

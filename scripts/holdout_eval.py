@@ -9,13 +9,13 @@ from recpy.metrics import roc_auc, precision, recall, map, ndcg, rr
 
 from recpy.recommenders.item_knn import ItemKNNRecommender
 from recpy.recommenders.slim import SLIM, MultiThreadSLIM
-from recpy.recommenders.mf import FunkSVD, IALS_numpy, AsySVD
+from recpy.recommenders.mf import FunkSVD, IALS_numpy, AsySVD, BPRMF
 from recpy.recommenders.non_personalized import TopPop, GlobalEffects
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(
     level=logging.INFO,
-    format="%(asctime)s: %(name)s: %(l-evelname)s: %(message)s")
+    format="%(asctime)s: %(name)s: %(levelname)s: %(message)s")
 
 available_recommenders = OrderedDict([
     ('top_pop', TopPop),
@@ -26,6 +26,7 @@ available_recommenders = OrderedDict([
     ('FunkSVD', FunkSVD),
     ('AsySVD', AsySVD),
     ('IALS_np', IALS_numpy),
+    ('BPRMF', BPRMF),
 ])
 
 # let's use an ArgumentParser to read input arguments

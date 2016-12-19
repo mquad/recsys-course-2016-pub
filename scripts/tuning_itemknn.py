@@ -13,7 +13,7 @@ from recpy.metrics import roc_auc, precision, recall, map, ndcg, rr
 logger = logging.getLogger(__name__)
 logging.basicConfig(
     level=logging.INFO,
-    format="%(asctime)s: %(name)s: %(l-evelname)s: %(message)s")
+    format="%(asctime)s: %(name)s: %(levelname)s: %(message)s")
 
 train_df = read_dataset('data/ml100k/train_tuning.csv', sep=',', header=0)
 test_df = read_dataset('data/ml100k/valid.csv', sep=',', header=0)

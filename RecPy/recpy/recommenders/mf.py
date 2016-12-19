@@ -1,12 +1,12 @@
 import numpy as np
 from .base import Recommender, check_matrix
-from .._cython._mf import FunkSVD_sgd, AsySVD_sgd, AsySVD_compute_user_factors
+from .._cython._mf import FunkSVD_sgd, AsySVD_sgd, AsySVD_compute_user_factors, BPRMF_sgd
 import logging
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(
     level=logging.INFO,
-    format="%(asctime)s: %(name)s: %(l-evelname)s: %(message)s")
+    format="%(asctime)s: %(name)s: %(levelname)s: %(message)s")
 
 
 class FunkSVD(Recommender):
@@ -20,6 +20,7 @@ class FunkSVD(Recommender):
     \operatornamewithlimits{argmin} \limits_{U,V}\frac{1}{2}||R - UV^T||^2_2 + \frac{\lambda}{2}(||U||^2_F + ||V||^2_F)
     Latent factors are initialized from a Normal distribution with given mean and std.
     '''
+
     # TODO: add global effects
     def __init__(self,
                  num_factors=50,
@@ -87,6 +88,7 @@ class AsySVD(Recommender):
     The model is learned by solving the following regularized Least-squares objective function with Stochastic Gradient Descent
     \operatornamewithlimits{argmin}\limits_{x*,y*}\frac{1}{2}\sum_{i,j \in R}(r_{ij} - x_j^T \sum_{l \in R(i)} r_{il}y_l)^2 + \frac{\lambda}{2}(\sum_{i}{||x_i||^2} + \sum_{j}{||y_j||^2})
     '''
+
     # TODO: add global effects
     # TODO: recommendation for new-users. Update the precomputed profiles online
     def __init__(self,
@@ -213,8 +215,8 @@ class IALS_numpy(Recommender):
         self.Y = np.random.normal(self.init_mean, self.init_std, size=(N, self.num_factors))
 
         for it in range(self.iters):
-            self.X = self._lsq_solver(C, self.X, self.Y, self.reg)
-            self.Y = self._lsq_solver(Ct, self.Y, self.X, self.reg)
+            self.X = self._lsq_solver_fast(C, self.X, self.Y, self.reg)
+            self.Y = self._lsq_solver_fast(Ct, self.Y, self.X, self.reg)
             logger.debug('Finished iter {}'.format(it + 1))
 
     def recommend(self, user_id, n=None, exclude_seen=True):
@@ -271,3 +273,75 @@ class IALS_numpy(Recommender):
     def _nonzeros(self, R, row):
         for i in range(R.indptr[row], R.indptr[row + 1]):
             yield (R.indices[i], R.data[i])
+
+
+class BPRMF(Recommender):
+    '''
+    BPRMF model
+    '''
+
+    # TODO: add global effects
+    def __init__(self,
+                 num_factors=50,
+                 lrate=0.01,
+                 user_reg=0.015,
+                 pos_reg=0.015,
+                 neg_reg=0.0015,
+                 iters=10,
+                 sample_with_replacement=True,
+                 init_mean=0.0,
+                 init_std=0.1,
+                 lrate_decay=1.0,
+                 rnd_seed=42):
+        '''
+        Initialize the model
+        :param num_factors: number of latent factors
+        :param lrate: initial learning rate used in SGD
+        :param user_reg: regularization for the user factors
+        :param pos_reg: regularization for the factors of the positive sampled items
+        :param neg_reg: regularization for the factors of the negative sampled items
+        :param iters: number of iterations in training the model with SGD
+        :param sample_with_replacement: `True` to sample positive items with replacement
+        :param init_mean: mean used to initialize the latent factors
+        :param init_std: standard deviation used to initialize the latent factors
+        :param lrate_decay: learning rate decay
+        :param rnd_seed: random seed
+        '''
+        super(BPRMF, self).__init__()
+        self.num_factors = num_factors
+        self.lrate = lrate
+        self.user_reg = user_reg
+        self.pos_reg = pos_reg
+        self.neg_reg = neg_reg
+        self.iters = iters
+        self.sample_with_replacement = sample_with_replacement
+        self.init_mean = init_mean
+        self.init_std = init_std
+        self.lrate_decay = lrate_decay
+        self.rnd_seed = rnd_seed
+
+    def __str__(self):
+        return "BPRMF(num_factors={}, lrate={}, user_reg={}. pos_reg={}, neg_reg={}, iters={}, " \
+               "sample_with_replacement={}, init_mean={}, " \
+               "init_std={}, lrate_decay={}, rnd_seed={})".format(
+            self.num_factors, self.lrate, self.user_reg, self.pos_reg, self.neg_reg, self.iters,
+            self.sample_with_replacement, self.init_mean, self.init_std,
+            self.lrate_decay,
+            self.rnd_seed
+        )
+
+    def fit(self, R):
+        self.dataset = R
+        R = check_matrix(R, 'csr', dtype=np.float32)
+        self.X, self.Y = BPRMF_sgd(R, self.num_factors, self.lrate, self.user_reg, self.pos_reg, self.neg_reg,
+                                   self.iters, self.sample_with_replacement, self.init_mean,
+                                   self.init_std,
+                                   self.lrate_decay, self.rnd_seed)
+
+    def recommend(self, user_id, n=None, exclude_seen=True):
+        scores = np.dot(self.X[user_id], self.Y.T)
+        ranking = scores.argsort()[::-1]
+        # rank items
+        if exclude_seen:
+            ranking = self._filter_seen(user_id, ranking)
+        return ranking[:n]
