@@ -289,6 +289,7 @@ class BPRMF(Recommender):
                  neg_reg=0.0015,
                  iters=10,
                  sample_with_replacement=True,
+                 use_resampling=True,
                  init_mean=0.0,
                  init_std=0.1,
                  lrate_decay=1.0,
@@ -302,6 +303,7 @@ class BPRMF(Recommender):
         :param neg_reg: regularization for the factors of the negative sampled items
         :param iters: number of iterations in training the model with SGD
         :param sample_with_replacement: `True` to sample positive items with replacement
+        :param use_resampling: `True` to resample at each iteration during training
         :param init_mean: mean used to initialize the latent factors
         :param init_std: standard deviation used to initialize the latent factors
         :param lrate_decay: learning rate decay
@@ -315,6 +317,7 @@ class BPRMF(Recommender):
         self.neg_reg = neg_reg
         self.iters = iters
         self.sample_with_replacement = sample_with_replacement
+        self.use_resampling = use_resampling
         self.init_mean = init_mean
         self.init_std = init_std
         self.lrate_decay = lrate_decay
@@ -322,10 +325,10 @@ class BPRMF(Recommender):
 
     def __str__(self):
         return "BPRMF(num_factors={}, lrate={}, user_reg={}. pos_reg={}, neg_reg={}, iters={}, " \
-               "sample_with_replacement={}, init_mean={}, " \
+               "sample_with_replacement={}, use_resampling={}, init_mean={}, " \
                "init_std={}, lrate_decay={}, rnd_seed={})".format(
             self.num_factors, self.lrate, self.user_reg, self.pos_reg, self.neg_reg, self.iters,
-            self.sample_with_replacement, self.init_mean, self.init_std,
+            self.sample_with_replacement, self.use_resampling, self.init_mean, self.init_std,
             self.lrate_decay,
             self.rnd_seed
         )

@@ -177,7 +177,7 @@ from libc.math cimport exp, log
 
 @cython.boundscheck(False)
 def BPRMF_sgd(R, num_factors=50, lrate=0.01, user_reg=0.015, pos_reg=0.015, neg_reg=0.0015, iters=10, 
-    sample_with_replacement=True, init_mean=0.0, init_std=0.1, lrate_decay=1.0, rnd_seed=42):
+    sample_with_replacement=True, use_resampling=False,  init_mean=0.0, init_std=0.1, lrate_decay=1.0, rnd_seed=42):
     if not isinstance(R, sps.csr_matrix):
         raise ValueError('R must be an instance of scipy.sparse.csr_matrix')
 
@@ -208,16 +208,32 @@ def BPRMF_sgd(R, num_factors=50, lrate=0.01, user_reg=0.015, pos_reg=0.015, neg_
     #
     for it in range(iters):     # for each iteration
         loss = 0.0
-        for n in range(nnz):   
+        for n in range(nnz):
+            i, j, k = sample[n]
+            # get the user and item factors
+            X_i = X[i].copy()
+            Y_j = Y[j].copy()
+            Y_k = Y[k].copy()
+            # compute the difference of the predicted scores
+            diff_yjk = Y_j - Y_k
+            zijk = np.dot(X_i, diff_yjk)
+            # compute the sigmoid
+            sig = 1. / (1. + exp(-zijk))
+            # update the loss
+            loss += log(sig)
 
-            #
-            # TODO: compute the BPR loss and update the latent factors X and Y
-            #
-            
+            # adjust the latent factors
+            deriv = 1. - sig
+            X[i] += lrate * (deriv * diff_yjk - user_reg * X_i)
+            Y[j] += lrate * (deriv * X_i - pos_reg * Y_j)
+            Y[k] += lrate * (-deriv * X_i - neg_reg * Y_k)
+
         loss /= nnz
         print('Iter {} - loss: {:.4f}'.format(it+1, loss))
         # update the learning rate
         lrate *= lrate_decay
+        if use_resampling:
+            sample = user_uniform_item_uniform_sampling(R, nnz, replace=sample_with_replacement, seed=rnd_seed)
 
     return X, Y
 
@@ -238,11 +254,41 @@ def user_uniform_item_uniform_sampling(R, size, replace=True, seed=1234):
     cdef int i=0, start, end, iid, jid, kid, idx
     cdef np.ndarray[np.int64_t, ndim=1] aux, neg_candidates
     cdef int [:] pos_candidates
-    #
-    # TODO: Sample (user, positive item, negative item triples) using the following procedure:
-    # 1) Sample a user uniformly at random
-    # 2) Sample a positive item of such user u.a.r. (With or without replacement)
-    # 3) Sample a negative item from the unobserved ratings of that user u.a.r.
-    # 4) Add the sampled triple to the sample vector
-    #
+    while i < size:
+        # 1) sample a user from a uniform distribution
+        iid  = np.random.choice(M)
+
+        # 2) sample a positive item uniformly at random
+        start = indptr[iid]
+        end = indptr[iid+1]
+        pos_candidates = col_indices[start:end]
+        if start == end:
+            # empty candidate set
+            continue
+        if replace:
+            # sample positive items with replacement
+            jid = np.random.choice(pos_candidates)
+        else:            
+            # sample positive items without replacement
+            # use a index vector between start and end
+            aux = np.arange(start, end)
+            if np.all(is_sampled[aux]):
+                # all positive items have been already sampled
+                continue
+            idx = np.random.choice(aux)
+            while is_sampled[idx]:
+                # TODO: remove idx from aux to speed up the sampling
+                idx = np.random.choice(aux)
+            is_sampled[idx] = 1
+            jid = col_indices[idx]
+
+        # 3) sample a negative item uniformly at random
+        # build the candidate set of negative items
+        # TODO: precompute the negative candidate set for speed-up
+        neg_candidates = np.delete(np.arange(N), pos_candidates)
+        kid = np.random.choice(neg_candidates)
+        sample[i, :] = [iid, jid, kid]
+        i += 1
+        if i % 10000 == 0:
+            print('Sampling... {:.2f}% complete'.format(i/size*100))
     return sample
