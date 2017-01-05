@@ -13,7 +13,7 @@ logging.basicConfig(
 
 
 def grid_search_cv(RecommenderClass, dataset, param_space, metric=roc_auc, at=None,
-                   cv_folds=5, is_implicit=True, user_key='user_id', item_key='item_id', rnd_seed=1234):
+                   cv_folds=5, is_implicit=True, user_key='user_id', item_key='item_id', rating_key='rating', rnd_seed=1234):
     '''
     Find the best hyper-parameters of a recommender algorithm with Grid Search
     :param recommender:
@@ -37,8 +37,10 @@ def grid_search_cv(RecommenderClass, dataset, param_space, metric=roc_auc, at=No
                                        k=cv_folds,
                                        clean_test=True,
                                        seed=rnd_seed):
-        train = df_to_csr(train_df, is_implicit=is_implicit, nrows=nusers, ncols=nitems)
-        test = df_to_csr(test_df, is_implicit=is_implicit, nrows=nusers, ncols=nitems)
+        train = df_to_csr(train_df, is_implicit=is_implicit, nrows=nusers, ncols=nitems,
+                          user_key=user_key, item_key=item_key, rating_key=rating_key)
+        test = df_to_csr(test_df, is_implicit=is_implicit, nrows=nusers, ncols=nitems,
+                          user_key=user_key, item_key=item_key, rating_key=rating_key)
         cv_split.append((train, test))
 
     for i, params in enumerate(param_grid):
