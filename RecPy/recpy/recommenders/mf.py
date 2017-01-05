@@ -166,7 +166,9 @@ class IALS_numpy(Recommender):
                  num_factors=50,
                  reg=0.015,
                  iters=10,
+                 scaling='linear',
                  alpha=40,
+                 epsilon=1e-6,
                  init_mean=0.0,
                  init_std=0.1,
                  rnd_seed=42):
@@ -174,36 +176,54 @@ class IALS_numpy(Recommender):
         Initialize the model
         :param num_factors: number of latent factors
         :param reg: regularization term
-        :param alpha: scaling factor to compute confidence scores
         :param iters: number of iterations in training the model with SGD
+        :param scaling: supported scaling modes for the observed values: 'linear' or 'log'
+        :param alpha: scaling factor to compute confidence scores
+        :param epsilon: epsilon used in log scaling only
         :param init_mean: mean used to initialize the latent factors
         :param init_std: standard deviation used to initialize the latent factors
         :param rnd_seed: random seed
         '''
 
         super(IALS_numpy, self).__init__()
+        assert scaling in ['linear', 'log'], 'Unsupported scaling: {}'.format(scaling)
+
         self.num_factors = num_factors
         self.reg = reg
         self.iters = iters
+        self.scaling = scaling
         self.alpha = alpha
+        self.epsilon = epsilon
         self.init_mean = init_mean
         self.init_std = init_std
         self.rnd_seed = rnd_seed
 
     def __str__(self):
-        return "WRMF-iALS(num_factors={},  reg={}, iters={}, alpha={}, init_mean={}, " \
+        return "WRMF-iALS(num_factors={},  reg={}, iters={}, scaling={}, alpha={}, episilon={}, init_mean={}, " \
                "init_std={}, rnd_seed={})".format(
-            self.num_factors, self.reg, self.iters, self.alpha, self.init_mean, self.init_std,
-            self.rnd_seed
+            self.num_factors, self.reg, self.iters, self.scaling, self.alpha, self.epsilon, self.init_mean,
+            self.init_std, self.rnd_seed
         )
+
+    def _linear_scaling(self, R):
+        C = R.copy().tocsr()
+        C.data *= self.alpha
+        C.data += 1.0
+        return C
+
+    def _log_scaling(self, R):
+        C = R.copy().tocsr()
+        C.data = 1.0 + self.alpha * np.log(1.0 + C.data / self.epsilon)
+        return C
 
     def fit(self, R):
         self.dataset = R
         # compute the confidence matrix
-        C = R.copy().tocsr()
-        # use linear scaling here
-        # TODO: add log-scaling
-        C.data = 1 + self.alpha * C.data
+        if self.scaling == 'linear':
+            C = self._linear_scaling(R)
+        else:
+            C = self._log_scaling(R)
+
         Ct = C.T.tocsr()
         M, N = R.shape
 
@@ -336,10 +356,19 @@ class BPRMF(Recommender):
     def fit(self, R):
         self.dataset = R
         R = check_matrix(R, 'csr', dtype=np.float32)
-        self.X, self.Y = BPRMF_sgd(R, self.num_factors, self.lrate, self.user_reg, self.pos_reg, self.neg_reg,
-                                   self.iters, self.sample_with_replacement, self.init_mean,
-                                   self.init_std,
-                                   self.lrate_decay, self.rnd_seed)
+        self.X, self.Y = BPRMF_sgd(R,
+                                   num_factors=self.num_factors,
+                                   lrate=self.lrate,
+                                   user_reg=self.user_reg,
+                                   pos_reg=self.pos_reg,
+                                   neg_reg=self.neg_reg,
+                                   iters=self.iters,
+                                   sample_with_replacement=self.sample_with_replacement,
+                                   use_resampling=self.use_resampling,
+                                   init_mean=self.init_mean,
+                                   init_std=self.init_std,
+                                   lrate_decay=self.lrate_decay,
+                                   rnd_seed=self.rnd_seed)
 
     def recommend(self, user_id, n=None, exclude_seen=True):
         scores = np.dot(self.X[user_id], self.Y.T)
