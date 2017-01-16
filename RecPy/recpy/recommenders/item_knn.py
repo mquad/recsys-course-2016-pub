@@ -62,7 +62,10 @@ class ItemKNNRecommender(Recommender):
             # of value of the ratings in dataset
             rated = user_profile.copy()
             rated.data = np.ones_like(rated.data)
-            den = rated.dot(self.item_weights).ravel()
+            if self.sparse_weights:
+                den = rated.dot(self.W_sparse).toarray().ravel()
+            else:
+                den = rated.dot(self.W).ravel()
             den[np.abs(den) < 1e-6] = 1.0  # to avoid NaNs
             scores /= den
         # rank items

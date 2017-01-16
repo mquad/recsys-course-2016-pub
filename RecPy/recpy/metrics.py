@@ -2,6 +2,7 @@ __author__ = 'massimo'
 import numpy as np
 import unittest
 
+
 def roc_auc(ranked_list, pos_items):
     is_relevant = np.in1d(ranked_list, pos_items, assume_unique=True)
     ranks = np.arange(len(ranked_list))
@@ -33,15 +34,17 @@ def recall(ranked_list, pos_items, at=None):
     assert 0 <= recall_score <= 1
     return recall_score
 
+
 def rr(ranked_list, pos_items, at=None):
     # reciprocal rank of the FIRST relevant item in the ranked list (0 if none)
     ranked_list = ranked_list[:at]
     is_relevant = np.in1d(ranked_list, pos_items, assume_unique=True)
-    ranks = np.arange(1, len(ranked_list)+1)[is_relevant]
+    ranks = np.arange(1, len(ranked_list) + 1)[is_relevant]
     if len(ranks) > 0:
         return 1. / ranks[0]
     else:
         return 0.0
+
 
 def map(ranked_list, pos_items, at=None):
     ranked_list = ranked_list[:at]
@@ -60,16 +63,18 @@ def ndcg(ranked_list, pos_items, relevance=None, at=None):
     rank_scores = np.asarray([it2rel.get(it, 0.0) for it in ranked_list[:at]], dtype=np.float32)
     ideal_dcg = dcg(np.sort(relevance)[::-1])
     rank_dcg = dcg(rank_scores)
-    ndcg = rank_dcg / ideal_dcg
-    assert 0 <= ndcg <= 1
-    return ndcg
+    ndcg_ = rank_dcg / ideal_dcg
+    # assert 0 <= ndcg_ <= 1, (rank_dcg, ideal_dcg, ndcg_)
+    return ndcg_
 
 
 def dcg(scores):
-    return np.sum(np.divide(np.power(2, scores) - 1, np.log(np.arange(scores.shape[0], dtype=np.float32) + 2)), dtype=np.float32)
+    return np.sum(np.divide(np.power(2, scores) - 1, np.log(np.arange(scores.shape[0], dtype=np.float32) + 2)),
+                  dtype=np.float32)
 
 
 metrics = ['AUC', 'Precision' 'Recall', 'MAP', 'NDCG']
+
 
 def pp_metrics(metric_names, metric_values, metric_at):
     """
@@ -104,9 +109,10 @@ class TestRecall(unittest.TestCase):
         self.assertTrue(np.allclose(recall(ranked_list_3, pos_items), 0.0))
 
         thresholds = [1, 2, 3, 4, 5]
-        values = [0.0, 1./4, 1./4, 2./4, 3./4]
+        values = [0.0, 1. / 4, 1. / 4, 2. / 4, 3. / 4]
         for at, val in zip(thresholds, values):
             self.assertTrue(np.allclose(np.asarray(recall(ranked_list_1, pos_items, at=at)), val))
+
 
 class TestPrecision(unittest.TestCase):
     def runTest(self):
@@ -119,7 +125,7 @@ class TestPrecision(unittest.TestCase):
         self.assertTrue(np.allclose(precision(ranked_list_3, pos_items), 0.0))
 
         thresholds = [1, 2, 3, 4, 5]
-        values = [0.0, 1./2, 1./3, 2./4, 3./5]
+        values = [0.0, 1. / 2, 1. / 3, 2. / 4, 3. / 5]
         for at, val in zip(thresholds, values):
             self.assertTrue(np.allclose(np.asarray(precision(ranked_list_1, pos_items, at=at)), val))
 
@@ -135,10 +141,9 @@ class TestRR(unittest.TestCase):
         self.assertTrue(np.allclose(rr(ranked_list_3, pos_items), 0.0))
 
         thresholds = [1, 2, 3, 4, 5]
-        values = [0.0, 1./2, 1./2, 1./2, 1./2]
+        values = [0.0, 1. / 2, 1. / 2, 1. / 2, 1. / 2]
         for at, val in zip(thresholds, values):
             self.assertTrue(np.allclose(np.asarray(rr(ranked_list_1, pos_items, at=at)), val))
-
 
 
 class TestMAP(unittest.TestCase):
@@ -152,8 +157,8 @@ class TestMAP(unittest.TestCase):
         self.assertTrue(np.allclose(map(ranked_list_1, pos_items), (1. / 2 + 2. / 4 + 3. / 5) / 4))
         self.assertTrue(np.allclose(map(ranked_list_2, pos_items), 1.0))
         self.assertTrue(np.allclose(map(ranked_list_3, pos_items), 0.0))
-        self.assertTrue(np.allclose(map(ranked_list_4, pos_items), (1./7 + 2./8 + 3./9 + 4./10) / 4))
-        self.assertTrue(np.allclose(map(ranked_list_5, pos_items), (1. + 2./7 + 3./8 + 4./9) / 4))
+        self.assertTrue(np.allclose(map(ranked_list_4, pos_items), (1. / 7 + 2. / 8 + 3. / 9 + 4. / 10) / 4))
+        self.assertTrue(np.allclose(map(ranked_list_5, pos_items), (1. + 2. / 7 + 3. / 8 + 4. / 9) / 4))
 
         thresholds = [1, 2, 3, 4, 5]
         values = [
@@ -162,10 +167,9 @@ class TestMAP(unittest.TestCase):
             1. / 2 / 3,
             (1. / 2 + 2. / 4) / 4,
             (1. / 2 + 2. / 4 + 3. / 5) / 4
-            ]
+        ]
         for at, val in zip(thresholds, values):
             self.assertTrue(np.allclose(np.asarray(map(ranked_list_1, pos_items, at)), val))
-
 
 
 class TestNDCG(unittest.TestCase):

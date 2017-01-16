@@ -7,6 +7,7 @@ from recpy.utils.data_utils import read_dataset, df_to_csr
 from recpy.metrics import roc_auc, precision, recall, map, ndcg, rr
 
 from recpy.recommenders.item_knn import ItemKNNRecommender
+from recpy.recommenders.user_knn import UserKNNRecommender
 from recpy.recommenders.slim import SLIM, MultiThreadSLIM
 from recpy.recommenders.mf import FunkSVD, IALS_numpy, AsySVD, BPRMF
 from recpy.recommenders.non_personalized import TopPop, GlobalEffects
@@ -20,6 +21,7 @@ available_recommenders = OrderedDict([
     ('top_pop', TopPop),
     ('global_effects', GlobalEffects),
     ('item_knn', ItemKNNRecommender),
+    ('user_knn', UserKNNRecommender),
     ('SLIM', SLIM),
     ('SLIM_mt', MultiThreadSLIM),
     ('FunkSVD', FunkSVD),

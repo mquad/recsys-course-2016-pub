@@ -27,10 +27,10 @@ def FunkSVD_sgd(R, num_factors=50, lrate=0.01, reg=0.015, iters=10, init_mean=0.
     # randomly initialize the user and item latent factors
     cdef np.ndarray[np.float32_t, ndim=2] U = np.random.normal(init_mean, init_std, (M, num_factors)).astype(np.float32)
     cdef np.ndarray[np.float32_t, ndim=2] V = np.random.normal(init_mean, init_std, (N, num_factors)).astype(np.float32)
-    
+
     # build random index to iterate over the non-zero elements in R
     cdef np.ndarray[np.int64_t, ndim=1] shuffled_idx = np.random.permutation(nnz).astype(np.int64)
-    
+
     # here we define some auxiliary variables
     cdef int i, j, idx, it, n
     cdef float rij, rij_pred, err, loss
@@ -45,7 +45,7 @@ def FunkSVD_sgd(R, num_factors=50, lrate=0.01, reg=0.015, iters=10, init_mean=0.
         for n in range(nnz):    # iterate over non-zero values in R only
             idx = shuffled_idx[n]
             rij = data[idx]
-            # get the row and col indices of x_ij 
+            # get the row and col indices of x_ij
             i = row_indices[idx]
             j = col_indices[idx]
             U_i = U[i].copy()
@@ -93,10 +93,10 @@ def AsySVD_sgd(R, num_factors=50, lrate=0.01, reg=0.015, iters=10, init_mean=0.0
     # randomly initialize the item latent factors
     cdef np.ndarray[np.float32_t, ndim=2] X = np.random.normal(init_mean, init_std, (N, num_factors)).astype(np.float32)
     cdef np.ndarray[np.float32_t, ndim=2] Y = np.random.normal(init_mean, init_std, (N, num_factors)).astype(np.float32)
-    
+
     # build random index to iterate over the non-zero elements in R
     cdef np.ndarray[np.int64_t, ndim=1] shuffled_idx = np.random.permutation(nnz).astype(np.int64)
-    
+
     # here we define some auxiliary variables
     cdef int i, j, it, n, idx, n_rated, start, end
     cdef float rij, rij_pred, err, loss
@@ -112,7 +112,7 @@ def AsySVD_sgd(R, num_factors=50, lrate=0.01, reg=0.015, iters=10, init_mean=0.0
         for n in range(nnz):    # iterate over non-zero values in R only
             idx = shuffled_idx[n]
             rij = data[idx]
-            # get the row and col indices of x_ij 
+            # get the row and col indices of x_ij
             i = row_indices[idx]
             j = col_indices[idx]
             # get the latent factor of item j
@@ -176,8 +176,9 @@ def AsySVD_compute_user_factors(user_profile, Y):
 from libc.math cimport exp, log
 
 @cython.boundscheck(False)
-def BPRMF_sgd(R, num_factors=50, lrate=0.01, user_reg=0.015, pos_reg=0.015, neg_reg=0.0015, iters=10, 
-    sample_with_replacement=True, use_resampling=False,  init_mean=0.0, init_std=0.1, lrate_decay=1.0, rnd_seed=42):
+def BPRMF_sgd(R, num_factors=50, lrate=0.01, user_reg=0.015, pos_reg=0.015, neg_reg=0.0015, iters=10,
+              sampling_type='user_uniform_item_uniform',sample_with_replacement=True, use_resampling=False, sampling_pop_alpha=1.0,
+     init_mean=0.0, init_std=0.1, lrate_decay=1.0, rnd_seed=42,verbose=False):
     if not isinstance(R, sps.csr_matrix):
         raise ValueError('R must be an instance of scipy.sparse.csr_matrix')
 
@@ -192,10 +193,16 @@ def BPRMF_sgd(R, num_factors=50, lrate=0.01, user_reg=0.015, pos_reg=0.015, neg_
     # randomly initialize the user and item latent factors
     cdef np.ndarray[np.float32_t, ndim=2] X = np.random.normal(init_mean, init_std, (M, num_factors)).astype(np.float32)
     cdef np.ndarray[np.float32_t, ndim=2] Y = np.random.normal(init_mean, init_std, (N, num_factors)).astype(np.float32)
-    
+
     # sample the training triples
-    cdef np.ndarray[np.int64_t, ndim=2] sample = user_uniform_item_uniform_sampling(R, nnz, replace=sample_with_replacement, seed=rnd_seed)
-    
+    cdef np.ndarray[np.int64_t, ndim=2] sample
+    if sampling_type == 'user_uniform_item_uniform':
+        sample = user_uniform_item_uniform_sampling(R, nnz, replace=sample_with_replacement, seed=rnd_seed, verbose=verbose)
+    elif sampling_type == 'user_uniform_item_pop':
+        sample = user_uniform_item_pop_sampling(R, nnz, alpha=sampling_pop_alpha, seed=rnd_seed, verbose=verbose)
+    else:
+        raise RuntimeError('Unknown sampling procedure "{}"'.format(sampling_type))
+
     # here we define some auxiliary variables
     cdef int i, j, k, idx, it, n
     cdef float rij, rik, loss, deriv
@@ -229,15 +236,19 @@ def BPRMF_sgd(R, num_factors=50, lrate=0.01, user_reg=0.015, pos_reg=0.015, neg_
             Y[k] += lrate * (-deriv * X_i - neg_reg * Y_k)
 
         loss /= nnz
-        print('Iter {} - loss: {:.4f}'.format(it+1, loss))
+        if verbose:
+            print('Iter {} - loss: {:.4f}'.format(it+1, loss))
         # update the learning rate
         lrate *= lrate_decay
         if use_resampling:
-            sample = user_uniform_item_uniform_sampling(R, nnz, replace=sample_with_replacement, seed=rnd_seed)
+            if sampling_type == 'user_uniform_item_uniform':
+                sample = user_uniform_item_uniform_sampling(R, nnz, replace=sample_with_replacement, seed=rnd_seed, verbose=verbose)
+            elif sampling_type == 'user_uniform_item_pop':
+                sample = user_uniform_item_pop_sampling(R, nnz, alpha=sampling_pop_alpha, seed=rnd_seed, verbose=verbose)
 
     return X, Y
 
-def user_uniform_item_uniform_sampling(R, size, replace=True, seed=1234):
+def user_uniform_item_uniform_sampling(R, size, replace=True, seed=1234, verbose=True):
     # use Cython MemoryViews for fast access to the sparse structure of R
     cdef int [:] col_indices = R.indices, indptr = R.indptr
     cdef int M = R.shape[0], N = R.shape[1]
@@ -268,7 +279,7 @@ def user_uniform_item_uniform_sampling(R, size, replace=True, seed=1234):
         if replace:
             # sample positive items with replacement
             jid = np.random.choice(pos_candidates)
-        else:            
+        else:
             # sample positive items without replacement
             # use a index vector between start and end
             aux = np.arange(start, end)
@@ -289,6 +300,54 @@ def user_uniform_item_uniform_sampling(R, size, replace=True, seed=1234):
         kid = np.random.choice(neg_candidates)
         sample[i, :] = [iid, jid, kid]
         i += 1
-        if i % 10000 == 0:
+        if verbose and i % 10000 == 0:
+            print('Sampling... {:.2f}% complete'.format(i/size*100))
+    return sample
+
+
+def user_uniform_item_pop_sampling(R, size, alpha=1., seed=1234, verbose=True):
+    # use Cython MemoryViews for fast access to the sparse structure of R
+    cdef int [:] col_indices = R.indices, indptr = R.indptr
+    cdef int M = R.shape[0], N = R.shape[1]
+    cdef int nnz = len(R.data)
+
+    cdef np.ndarray[np.int64_t, ndim=2] sample = np.zeros((size, 3), dtype=np.int64)
+
+    # compute the item popularity
+    cdef np.ndarray[np.float32_t, ndim=1] item_pop = np.asarray(np.sum(R > 0, axis=0)).squeeze().astype(np.float32)
+    # smooth popularity with an exponential factor alpha
+    item_pop = np.power(item_pop, alpha)
+
+    # set the seed of the random number generator
+    np.random.seed(seed)
+
+    cdef int i=0, start, end, iid, jid, kid, idx
+    cdef np.ndarray[np.int64_t, ndim=1] aux, neg_candidates
+    cdef int [:] pos_candidates
+    cdef np.ndarray[np.float32_t, ndim=1] p
+    while i < size:
+        # 1) sample a user from a uniform distribution
+        iid  = np.random.choice(M)
+
+        # 2) sample a positive item proportionally to its popularity
+        start = indptr[iid]
+        end = indptr[iid+1]
+        pos_candidates = col_indices[start:end]
+        if start == end:
+            # empty candidate set
+            continue
+        # always sample with replacement
+        p = item_pop[pos_candidates]
+        p /= np.sum(p)
+        jid = np.random.choice(pos_candidates, p=p)
+
+        # 3) sample a negative item uniformly at random
+        # build the candidate set of negative items
+        # TODO: precompute the negative candidate set for speed-up
+        neg_candidates = np.delete(np.arange(N), pos_candidates)
+        kid = np.random.choice(neg_candidates)
+        sample[i, :] = [iid, jid, kid]
+        i += 1
+        if verbose and i % 10000 == 0:
             print('Sampling... {:.2f}% complete'.format(i/size*100))
     return sample

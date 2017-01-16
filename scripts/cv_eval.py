@@ -9,6 +9,7 @@ from recpy.utils.split import k_fold_cv
 from recpy.metrics import roc_auc, precision, recall, map, ndcg, rr
 
 from recpy.recommenders.item_knn import ItemKNNRecommender
+from recpy.recommenders.user_knn import UserKNNRecommender
 from recpy.recommenders.slim import SLIM, MultiThreadSLIM
 from recpy.recommenders.mf import FunkSVD, IALS_numpy, AsySVD, BPRMF
 from recpy.recommenders.non_personalized import TopPop, GlobalEffects
@@ -22,6 +23,7 @@ available_recommenders = OrderedDict([
     ('top_pop', TopPop),
     ('global_effects', GlobalEffects),
     ('item_knn', ItemKNNRecommender),
+    ('user_knn', UserKNNRecommender),
     ('SLIM', SLIM),
     ('SLIM_mt', MultiThreadSLIM),
     ('FunkSVD', FunkSVD),
@@ -94,11 +96,11 @@ for train_df, test_df in k_fold_cv(dataset,
                                    k=args.cv_folds,
                                    clean_test=True,
                                    seed=args.rnd_seed):
-    logger.info(train_df.shape)
-    logger.info(test_df.shape)
     logger.info('Fold {}'.format(nfold + 1))
-    train = df_to_csr(train_df, is_implicit=args.is_implicit, nrows=nusers, ncols=nitems)
-    test = df_to_csr(test_df, is_implicit=args.is_implicit, nrows=nusers, ncols=nitems)
+    train = df_to_csr(train_df, is_implicit=args.is_implicit, nrows=nusers, ncols=nitems,
+                      user_key='user_idx', item_key='item_idx', rating_key=args.rating_key)
+    test = df_to_csr(test_df, is_implicit=args.is_implicit, nrows=nusers, ncols=nitems,
+                     user_key='user_idx', item_key='item_idx', rating_key=args.rating_key)
 
     # train the recommender
     recommender = RecommenderClass(**init_args)
