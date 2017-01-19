@@ -83,6 +83,18 @@ class SLIM(Recommender):
             ranking = self._filter_seen(user_id, ranking)
         return ranking[:n]
 
+    def recommend_new_user(self, user_profile, n=None, exclude_seen=True):
+        assert user_profile.shape[1] == self.W_sparse.shape[0], 'The number of items does not match!'
+        # compute the scores using the dot product
+        scores = user_profile.dot(self.W_sparse).toarray().ravel()
+        ranking = scores.argsort()[::-1]
+        # rank items
+        if exclude_seen:
+            seen = user_profile.indices
+            unseen_mask = np.in1d(ranking, seen, assume_unique=True, invert=True)
+            ranking = ranking[unseen_mask]
+        return ranking[:n]
+
 
 from multiprocessing import Pool
 from functools import partial

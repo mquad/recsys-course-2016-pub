@@ -15,7 +15,7 @@ def roc_auc(ranked_list, pos_items):
         for pos_pred in pos_ranks:
             auc_score += np.sum(pos_pred < neg_ranks, dtype=np.float32)
         auc_score /= (pos_ranks.shape[0] * neg_ranks.shape[0])
-    assert 0 <= auc_score <= 1
+    assert 0 <= auc_score <= 1, auc_score
     return auc_score
 
 
@@ -23,7 +23,7 @@ def precision(ranked_list, pos_items, at=None):
     ranked_list = ranked_list[:at]
     is_relevant = np.in1d(ranked_list, pos_items, assume_unique=True)
     precision_score = np.sum(is_relevant, dtype=np.float32) / len(ranked_list)
-    assert 0 <= precision_score <= 1
+    assert 0 <= precision_score <= 1, precision_score
     return precision_score
 
 
@@ -31,7 +31,7 @@ def recall(ranked_list, pos_items, at=None):
     ranked_list = ranked_list[:at]
     is_relevant = np.in1d(ranked_list, pos_items, assume_unique=True)
     recall_score = np.sum(is_relevant, dtype=np.float32) / pos_items.shape[0]
-    assert 0 <= recall_score <= 1
+    assert 0 <= recall_score <= 1, recall_score
     return recall_score
 
 
@@ -51,7 +51,7 @@ def map(ranked_list, pos_items, at=None):
     is_relevant = np.in1d(ranked_list, pos_items, assume_unique=True)
     p_at_k = is_relevant * np.cumsum(is_relevant, dtype=np.float32) / (1 + np.arange(is_relevant.shape[0]))
     map_score = np.sum(p_at_k) / np.min([pos_items.shape[0], len(ranked_list)])
-    assert 0 <= map_score <= 1
+    assert 0 <= map_score <= 1, map_score
     return map_score
 
 

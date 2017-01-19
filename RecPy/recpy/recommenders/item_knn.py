@@ -73,3 +73,30 @@ class ItemKNNRecommender(Recommender):
         if exclude_seen:
             ranking = self._filter_seen(user_id, ranking)
         return ranking[:n]
+
+    def recommend_new_user(self, user_profile, n=None, exclude_seen=True):
+        # compute the scores using the dot product
+        if self.sparse_weights:
+            assert user_profile.shape[1] == self.W_sparse.shape[0], 'The number of items does not match!'
+            scores = user_profile.dot(self.W_sparse).toarray().ravel()
+        else:
+            assert user_profile.shape[1] == self.W.shape[0], 'The number of items does not match!'
+            scores = user_profile.dot(self.W).ravel()
+        if self.normalize:
+            # normalization will keep the scores in the same range
+            # of value of the ratings in dataset
+            rated = user_profile.copy()
+            rated.data = np.ones_like(rated.data)
+            if self.sparse_weights:
+                den = rated.dot(self.W_sparse).toarray().ravel()
+            else:
+                den = rated.dot(self.W).ravel()
+            den[np.abs(den) < 1e-6] = 1.0  # to avoid NaNs
+            scores /= den
+        # rank items
+        ranking = scores.argsort()[::-1]
+        if exclude_seen:
+            seen = user_profile.indices
+            unseen_mask = np.in1d(ranking, seen, assume_unique=True, invert=True)
+            ranking = ranking[unseen_mask]
+        return ranking[:n]

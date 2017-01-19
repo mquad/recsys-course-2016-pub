@@ -1,5 +1,6 @@
 import argparse
 import logging
+import pandas as pd
 from collections import OrderedDict
 from datetime import datetime as dt
 
@@ -34,7 +35,7 @@ available_recommenders = OrderedDict([
 parser = argparse.ArgumentParser()
 parser.add_argument('train')
 parser.add_argument('test')
-parser.add_argument('--is_implicit', action='store_true', default=False)
+parser.add_argument('--is_binary', action='store_true', default=False)
 parser.add_argument('--header', type=int, default=None)
 parser.add_argument('--columns', type=str, default=None)
 parser.add_argument('--sep', type=str, default=',')
@@ -67,13 +68,43 @@ if args.columns is not None:
 
 # read the dataset
 logger.info('Reading {}'.format(args.train))
-train_df = read_dataset(args.train, sep=',', header=0)
+train_df, item_to_idx, user_to_idx = read_dataset(args.train,
+                                                  sep=',',
+                                                  header=0,
+                                                  columns=args.columns,
+                                                  user_key=args.user_key,
+                                                  item_key=args.item_key,
+                                                  rating_key=args.rating_key)
 logger.info('Reading {}'.format(args.test))
-test_df = read_dataset(args.test, sep=',', header=0)
+test_df, _, _ = read_dataset(args.test,
+                             sep=',',
+                             header=0,
+                             columns=args.columns,
+                             user_key=args.user_key,
+                             item_key=args.item_key,
+                             rating_key=args.rating_key,
+                             item_to_idx=item_to_idx,
+                             user_to_idx=user_to_idx)
 
-nusers, nitems = train_df.user_idx.max()+1, train_df.item_idx.max()+1
-train = df_to_csr(train_df, is_implicit=args.is_implicit, nrows=nusers, ncols=nitems)
-test = df_to_csr(test_df, is_implicit=args.is_implicit, nrows=nusers, ncols=nitems)
+# build reverse maps
+idx_to_item = pd.Series(index=item_to_idx.data, data=item_to_idx.index)
+idx_to_user = pd.Series(index=user_to_idx.data, data=user_to_idx.index)
+
+nusers, nitems = train_df.user_idx.max() + 1, train_df.item_idx.max() + 1
+train = df_to_csr(train_df,
+                  is_binary=args.is_binary,
+                  nrows=nusers,
+                  ncols=nitems,
+                  user_key='user_idx',
+                  item_key='item_idx',
+                  rating_key=args.rating_key)
+test = df_to_csr(test_df,
+                 is_binary=args.is_binary,
+                 nrows=nusers,
+                 ncols=nitems,
+                 user_key='user_idx',
+                 item_key='item_idx',
+                 rating_key=args.rating_key)
 
 # train the recommender
 recommender = RecommenderClass(**init_args)
@@ -88,7 +119,7 @@ if args.prediction_file:
     pfile = open(args.prediction_file, 'w')
     n = args.rec_length if args.rec_length is not None else nitems
     header = 'user_id,'
-    header += ','.join(['rec_item{}'.format(i+1) for i in range(args.rec_length)]) + '\n'
+    header += ','.join(['rec_item{}'.format(i + 1) for i in range(args.rec_length)]) + '\n'
     pfile.write(header)
 
 # evaluate the ranking quality

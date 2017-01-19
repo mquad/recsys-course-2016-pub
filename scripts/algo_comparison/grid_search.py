@@ -57,13 +57,13 @@ def holdout_eval(recommender, train, test, at=10):
 metric = roc_auc
 cv_folds = 5
 at = 10
-is_implicit = True
+is_binary = True
 
-train_df = read_dataset('../../data/ml100k/implicit_holdout/train.csv', sep=',', header=0)
-test_df = read_dataset('../../data/ml100k/implicit_holdout/test.csv', sep=',', header=0)
+train_df = read_dataset('../../data/ml100k/binary_holdout/train.csv', sep=',', header=0)
+test_df = read_dataset('../../data/ml100k/binary_holdout/test.csv', sep=',', header=0)
 nusers, nitems = train_df.user_idx.max() + 1, train_df.item_idx.max() + 1
-train = df_to_csr(train_df, is_implicit=is_implicit, nrows=nusers, ncols=nitems)
-test = df_to_csr(test_df, is_implicit=is_implicit, nrows=nusers, ncols=nitems)
+train = df_to_csr(train_df, is_binary=is_binary, nrows=nusers, ncols=nitems)
+test = df_to_csr(test_df, is_binary=is_binary, nrows=nusers, ncols=nitems)
 
 #
 # TopPop
@@ -90,7 +90,7 @@ best_config, cv_score = grid_search_cv(RecommenderClass,
                                        param_space,
                                        metric=roc_auc,
                                        cv_folds=cv_folds,
-                                       is_implicit=is_implicit,
+                                       is_binary=is_binary,
                                        user_key='user_idx',
                                        item_key='item_idx')
 logger.info('Best configuration:')
@@ -117,7 +117,7 @@ best_config, cv_score = grid_search_cv(RecommenderClass,
                                        param_space,
                                        metric=roc_auc,
                                        cv_folds=cv_folds,
-                                       is_implicit=is_implicit,
+                                       is_binary=is_binary,
                                        user_key='user_idx',
                                        item_key='item_idx')
 logger.info('Best configuration:')
@@ -143,7 +143,7 @@ best_config, cv_score = grid_search_cv(RecommenderClass,
                                        param_space,
                                        metric=roc_auc,
                                        cv_folds=cv_folds,
-                                       is_implicit=is_implicit,
+                                       is_binary=is_binary,
                                        user_key='user_idx',
                                        item_key='item_idx')
 logger.info('Best configuration:')
@@ -171,7 +171,7 @@ best_config, cv_score = grid_search_cv(RecommenderClass,
                                        param_space,
                                        metric=roc_auc,
                                        cv_folds=cv_folds,
-                                       is_implicit=is_implicit,
+                                       is_binary=is_binary,
                                        user_key='user_idx',
                                        item_key='item_idx')
 logger.info('Best configuration:')
@@ -199,7 +199,7 @@ best_config, cv_score = grid_search_cv(RecommenderClass,
                                        param_space,
                                        metric=roc_auc,
                                        cv_folds=cv_folds,
-                                       is_implicit=is_implicit,
+                                       is_binary=is_binary,
                                        user_key='user_idx',
                                        item_key='item_idx')
 logger.info('Best configuration:')
@@ -236,7 +236,7 @@ best_config, cv_score = grid_search_cv(RecommenderClass,
                                        param_space,
                                        metric=roc_auc,
                                        cv_folds=cv_folds,
-                                       is_implicit=is_implicit,
+                                       is_binary=is_binary,
                                        user_key='user_idx',
                                        item_key='item_idx')
 logger.info('Best configuration:')

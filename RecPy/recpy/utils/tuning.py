@@ -13,7 +13,7 @@ logging.basicConfig(
 
 
 def grid_search_cv(RecommenderClass, dataset, param_space, metric=roc_auc, at=None,
-                   cv_folds=5, is_implicit=True, user_key='user_id', item_key='item_id', rating_key='rating',
+                   cv_folds=5, is_binary=True, user_key='user_id', item_key='item_id', rating_key='rating',
                    rnd_seed=1234):
     """
     Finds the best hyper-parameters of a recommender algorithm with Grid Search
@@ -24,7 +24,7 @@ def grid_search_cv(RecommenderClass, dataset, param_space, metric=roc_auc, at=No
     :param metric: metric to maximize
     :param at: optional length of the recommendation list used in recommendaiton
     :param cv_folds: number of cross-validation iters
-    :param is_implicit: True to discard ratings, False otherwise
+    :param is_binary: True to discard ratings, False otherwise
     :param user_key: name of the column with user ids in dataset
     :param item_key: name of the column with item ids in dataset
     :param rating_key: name of the column with ratings in dataset
@@ -46,9 +46,9 @@ def grid_search_cv(RecommenderClass, dataset, param_space, metric=roc_auc, at=No
                                        k=cv_folds,
                                        clean_test=True,
                                        seed=rnd_seed):
-        train = df_to_csr(train_df, is_implicit=is_implicit, nrows=nusers, ncols=nitems,
+        train = df_to_csr(train_df, is_binary=is_binary, nrows=nusers, ncols=nitems,
                           user_key=user_key, item_key=item_key, rating_key=rating_key)
-        test = df_to_csr(test_df, is_implicit=is_implicit, nrows=nusers, ncols=nitems,
+        test = df_to_csr(test_df, is_binary=is_binary, nrows=nusers, ncols=nitems,
                          user_key=user_key, item_key=item_key, rating_key=rating_key)
         cv_split.append((train, test))
 
@@ -87,7 +87,7 @@ def grid_search_cv(RecommenderClass, dataset, param_space, metric=roc_auc, at=No
 
 
 def random_search_cv(RecommenderClass, dataset, param_space, iters=10, metric=roc_auc, at=None,
-                     cv_folds=5, is_implicit=True, user_key='user_id', item_key='item_id', rating_key='rating',
+                     cv_folds=5, is_binary=True, user_key='user_id', item_key='item_id', rating_key='rating',
                      rnd_seed=1234):
     """
     Finds the best hyper-parameters of a recommender algorithm with Random Search
@@ -99,7 +99,7 @@ def random_search_cv(RecommenderClass, dataset, param_space, iters=10, metric=ro
     :param metric: metric to maximize
     :param at: optional length of the recommendation list used in recommendaiton
     :param cv_folds: number of cross-validation iters
-    :param is_implicit: True to discard ratings, False otherwise
+    :param is_binary: True to discard ratings, False otherwise
     :param user_key: name of the column with user ids in dataset
     :param item_key: name of the column with item ids in dataset
     :param rating_key: name of the column with ratings in dataset
@@ -122,9 +122,9 @@ def random_search_cv(RecommenderClass, dataset, param_space, iters=10, metric=ro
                                        k=cv_folds,
                                        clean_test=True,
                                        seed=rnd_seed):
-        train = df_to_csr(train_df, is_implicit=is_implicit, nrows=nusers, ncols=nitems,
+        train = df_to_csr(train_df, is_binary=is_binary, nrows=nusers, ncols=nitems,
                           user_key=user_key, item_key=item_key, rating_key=rating_key)
-        test = df_to_csr(test_df, is_implicit=is_implicit, nrows=nusers, ncols=nitems,
+        test = df_to_csr(test_df, is_binary=is_binary, nrows=nusers, ncols=nitems,
                          user_key=user_key, item_key=item_key, rating_key=rating_key)
         cv_split.append((train, test))
 

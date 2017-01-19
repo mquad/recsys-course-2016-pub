@@ -35,9 +35,9 @@ available_recommenders = OrderedDict([
 # let's use an ArgumentParser to read input arguments
 parser = argparse.ArgumentParser()
 parser.add_argument('dataset')
-parser.add_argument('--is_implicit', action='store_true', default=False)
-parser.add_argument('--make_implicit', action='store_true', default=False)
-parser.add_argument('--implicit_th', type=float, default=4.0)
+parser.add_argument('--is_binary', action='store_true', default=False)
+parser.add_argument('--make_binary', action='store_true', default=False)
+parser.add_argument('--binary_th', type=float, default=4.0)
 parser.add_argument('--cv_folds', type=int, default=5)
 parser.add_argument('--header', type=int, default=None)
 parser.add_argument('--columns', type=str, default=None)
@@ -70,18 +70,18 @@ if args.columns is not None:
 
 # read the dataset
 logger.info('Reading {}'.format(args.dataset))
-dataset, idx_to_user, idx_to_item = read_dataset(
+dataset, item_to_idx, user_to_idx = read_dataset(
     args.dataset,
     header=args.header,
     sep=args.sep,
     columns=args.columns,
-    make_implicit=args.make_implicit,
-    implicit_th=args.implicit_th,
+    make_binary=args.make_binary,
+    binary_th=args.binary_th,
     item_key=args.item_key,
     user_key=args.user_key,
     rating_key=args.rating_key)
 
-nusers, nitems = len(idx_to_user), len(idx_to_item)
+nusers, nitems = dataset.user_idx.max() + 1, dataset.item_idx.max() + 1
 logger.info('The dataset has {} users and {} items'.format(nusers, nitems))
 
 # evaluate the recommendation quality with k-fold cross-validation
@@ -97,10 +97,20 @@ for train_df, test_df in k_fold_cv(dataset,
                                    clean_test=True,
                                    seed=args.rnd_seed):
     logger.info('Fold {}'.format(nfold + 1))
-    train = df_to_csr(train_df, is_implicit=args.is_implicit, nrows=nusers, ncols=nitems,
-                      user_key='user_idx', item_key='item_idx', rating_key=args.rating_key)
-    test = df_to_csr(test_df, is_implicit=args.is_implicit, nrows=nusers, ncols=nitems,
-                     user_key='user_idx', item_key='item_idx', rating_key=args.rating_key)
+    train = df_to_csr(train_df,
+                      is_binary=args.is_binary,
+                      nrows=nusers,
+                      ncols=nitems,
+                      user_key='user_idx',
+                      item_key='item_idx',
+                      rating_key=args.rating_key)
+    test = df_to_csr(test_df,
+                     is_binary=args.is_binary,
+                     nrows=nusers,
+                     ncols=nitems,
+                     user_key='user_idx',
+                     item_key='item_idx',
+                     rating_key=args.rating_key)
 
     # train the recommender
     recommender = RecommenderClass(**init_args)

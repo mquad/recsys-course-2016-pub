@@ -149,10 +149,10 @@ class AsySVD(Recommender):
 
 class IALS_numpy(Recommender):
     '''
-    Implicit Alternating Least Squares model (or Weighed Regularized Matrix Factorization)
-    Reference: Collaborative Filtering for Implicit Feedback Datasets (Hu et al., 2008)
+    binary Alternating Least Squares model (or Weighed Regularized Matrix Factorization)
+    Reference: Collaborative Filtering for binary Feedback Datasets (Hu et al., 2008)
 
-    Factorization model for implicit feedback.
+    Factorization model for binary feedback.
     First, splits the feedback matrix R as the element-wise a Preference matrix P and a Confidence matrix C.
     Then computes the decomposition of them into the dot product of two matrices X and Y of latent factors.
     X represent the user latent factors, Y the item latent factors.
@@ -168,7 +168,7 @@ class IALS_numpy(Recommender):
                  iters=10,
                  scaling='linear',
                  alpha=40,
-                 epsilon=1e-6,
+                 epsilon=1.0,
                  init_mean=0.0,
                  init_std=0.1,
                  rnd_seed=42):

@@ -16,7 +16,7 @@ extensions = [
 
 setup(
     name='RecPy',
-    version="0.2.0",
+    version="0.3.0",
     description='Recommender Systems framework for the 2016 Recsys Course at Polimi',
     url='https://github.com/mquad/recsys-course',
     author='Massimo Quadrana and Yashar Deldjoo',

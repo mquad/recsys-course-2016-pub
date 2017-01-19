@@ -34,9 +34,9 @@ available_recommenders = OrderedDict([
 # let's use an ArgumentParser to read input arguments
 parser = argparse.ArgumentParser()
 parser.add_argument('dataset')
-parser.add_argument('--is_implicit', action='store_true', default=False)
-parser.add_argument('--make_implicit', action='store_true', default=False)
-parser.add_argument('--implicit_th', type=float, default=4.0)
+parser.add_argument('--is_binary', action='store_true', default=False)
+parser.add_argument('--make_binary', action='store_true', default=False)
+parser.add_argument('--binary_th', type=float, default=4.0)
 parser.add_argument('--holdout_perc', type=float, default=0.8)
 parser.add_argument('--header', type=int, default=None)
 parser.add_argument('--columns', type=str, default=None)
@@ -47,7 +47,6 @@ parser.add_argument('--rating_key', type=str, default='rating')
 parser.add_argument('--rnd_seed', type=int, default=1234)
 parser.add_argument('--recommender', type=str, default='top_pop')
 parser.add_argument('--params', type=str, default=None)
-parser.add_argument('--prediction_file', type=str, default=None)
 parser.add_argument('--rec_length', type=int, default=10)
 args = parser.parse_args()
 
@@ -70,18 +69,18 @@ if args.columns is not None:
 
 # read the dataset
 logger.info('Reading {}'.format(args.dataset))
-dataset, idx_to_user, idx_to_item = read_dataset(
+dataset, item_to_idx, user_to_idx = read_dataset(
     args.dataset,
     header=args.header,
     sep=args.sep,
     columns=args.columns,
-    make_implicit=args.make_implicit,
-    implicit_th=args.implicit_th,
+    make_binary=args.make_binary,
+    binary_th=args.binary_th,
     item_key=args.item_key,
     user_key=args.user_key,
     rating_key=args.rating_key)
 
-nusers, nitems = len(idx_to_user), len(idx_to_item)
+nusers, nitems = dataset.user_idx.max() + 1, dataset.item_idx.max() + 1
 logger.info('The dataset has {} users and {} items'.format(nusers, nitems))
 
 # compute the holdout split
@@ -92,8 +91,20 @@ train_df, test_df = holdout(dataset,
                             perc=args.holdout_perc,
                             clean_test=True,
                             seed=args.rnd_seed)
-train = df_to_csr(train_df, is_implicit=args.is_implicit, nrows=nusers, ncols=nitems)
-test = df_to_csr(test_df, is_implicit=args.is_implicit, nrows=nusers, ncols=nitems)
+train = df_to_csr(train_df,
+                  is_binary=args.is_binary,
+                  nrows=nusers,
+                  ncols=nitems,
+                  item_key='item_idx',
+                  user_key='user_idx',
+                  rating_key=args.rating_key)
+test = df_to_csr(test_df,
+                 is_binary=args.is_binary,
+                 nrows=nusers,
+                 ncols=nitems,
+                 item_key='item_idx',
+                 user_key='user_idx',
+                 rating_key=args.rating_key)
 
 # train the recommender
 recommender = RecommenderClass(**init_args)
@@ -102,14 +113,6 @@ tic = dt.now()
 logger.info('Training started')
 recommender.fit(train)
 logger.info('Training completed in {}'.format(dt.now() - tic))
-
-# open the prediction file
-if args.prediction_file:
-    pfile = open(args.prediction_file, 'w')
-    n = args.rec_length if args.rec_length is not None else nitems
-    header = 'user_id,'
-    header += ','.join(['rec_item{}'.format(i+1) for i in range(args.rec_length)]) + '\n'
-    pfile.write(header)
 
 # evaluate the ranking quality
 roc_auc_, precision_, recall_, map_, mrr_, ndcg_ = 0.0, 0.0, 0.0, 0.0, 0.0, 0.0
@@ -122,15 +125,6 @@ for test_user in range(nusers):
         n_eval += 1
         # this will rank **all** items
         recommended_items = recommender.recommend(user_id=test_user, exclude_seen=True)
-
-        if args.prediction_file:
-            # write the recommendation list to file, one user per line
-            user_id = idx_to_user[test_user]
-            rec_list = idx_to_item[recommended_items].values[:args.rec_length]
-            s = str(user_id) + ','
-            s += ','.join([str(x) for x in rec_list]) + '\n'
-            pfile.write(s)
-
         # evaluate the recommendation list with ranking metrics ONLY
         roc_auc_ += roc_auc(recommended_items, relevant_items)
         precision_ += precision(recommended_items, relevant_items, at=at)
@@ -144,11 +138,6 @@ recall_ /= n_eval
 map_ /= n_eval
 mrr_ /= n_eval
 ndcg_ /= n_eval
-
-# close the prediction file
-if args.prediction_file:
-    pfile.close()
-    logger.info('Recommendations written to {}'.format(args.prediction_file))
 
 logger.info('Ranking quality')
 logger.info('ROC-AUC: {:.4f}'.format(roc_auc_))

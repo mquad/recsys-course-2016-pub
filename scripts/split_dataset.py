@@ -14,9 +14,9 @@ parser = argparse.ArgumentParser()
 parser.add_argument('dataset')
 parser.add_argument('train_file')
 parser.add_argument('test_file')
-parser.add_argument('--is_implicit', action='store_true', default=False)
-parser.add_argument('--make_implicit', action='store_true', default=False)
-parser.add_argument('--implicit_th', type=float, default=4.0)
+parser.add_argument('--is_binary', action='store_true', default=False)
+parser.add_argument('--make_binary', action='store_true', default=False)
+parser.add_argument('--binary_th', type=float, default=4.0)
 parser.add_argument('--holdout_perc', type=float, default=0.8)
 parser.add_argument('--header', type=int, default=None)
 parser.add_argument('--columns', type=str, default=None)
@@ -38,8 +38,8 @@ dataset, idx_to_user, idx_to_item = read_dataset(
     header=args.header,
     sep=args.sep,
     columns=args.columns,
-    make_implicit=args.make_implicit,
-    implicit_th=args.implicit_th,
+    make_binary=args.make_binary,
+    binary_th=args.binary_th,
     item_key=args.item_key,
     user_key=args.user_key,
     rating_key=args.rating_key)
